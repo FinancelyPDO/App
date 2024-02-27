@@ -11,8 +11,6 @@ export default function ProofOfReserve() {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
   const [isInvalid, setIsInvalid] = React.useState(true);
 
-  const authUrl = 'https://myfreetest-sandbox.biapi.pro/2.0/auth/webview/connect?client_id=10916951&redirect_uri=http://localhost:3000/PageProof';
-
   const handleGenerateProof = () => {
     if (selectedValues.includes('web2')) {
       console.log('Redirecting to auth URL for web2...');
@@ -25,6 +23,8 @@ export default function ProofOfReserve() {
       console.log('Handling both web2 and web3 options...');
     }
   };
+
+  const authUrl = 'https://myfreetest-sandbox.biapi.pro/2.0/auth/webview/connect?client_id=10916951&redirect_uri=http://localhost:3000/PageProof';
 
   return (
     <div className='bg-zinc-900'>
