@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
@@ -66,19 +67,28 @@ export default function PageProof() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold mb-8">Proof of Funds</h1>
-      <div className="max-w-md p-8 bg-white rounded-lg shadow-md">
-        <div className="mb-4">
-          <label htmlFor="hash" className="block text-lg font-semibold mb-2">Hash</label>
-          <p id="hash" className="bg-gray-100 p-2 rounded-md">0xez65f1s3d5f1a3e5f13w5d1f3q51qd3s1da</p>
+<div className="flex justify-center items-center w-screen h-screen bg-indigo-500 bg-opacity-5">
+      <main className="w-[450px] h-[616px] relative">
+        <div className="w-[450px] h-[523px] relative top-[53px] bg-white rounded-[20px] border border-indigo-500">
+          <div className="flex justify-center">
+            <button className="flex justify-center text-[28px] font-bold">
+              <span style={{ textDecoration: 'underline', color: 'blue' }}>Hash</span>
+            </button>
+          </div>
+          <div className='flex justify-center mt-10'>
+            <Image 
+              src="/images/proof.png"
+              alt="proof"
+              width={200}
+              height={200}
+            />
+          </div>
+          <div className="left-20 top-[320px] absolute text-center text-slate-800 text-3xl font-bold font-['DM Sans']">Your proof has been <br />generated !</div>
+          <button onClick={getAccountData} className="w-[380px] h-[60px] mt-[150px] mx-[35px] bg-indigo-500 rounded-[10px] text-white text-xl font-medium flex justify-center items-center">
+          Get data
+          </button>
         </div>
-        <div className="mb-4">
-          <label htmlFor="pdf" className="block text-lg font-semibold mb-2">PDF</label>
-          <a href="/path/to/pdf-file.pdf" download className="block bg-indigo-500 text-white px-6 py-3 rounded-md text-center hover:bg-indigo-600 text-lg font-semibold">Download</a>
-        </div>
-      </div>
-      <button onClick={getAccountData}>Get data</button>
+      </main>
     </div>
   );
 }
