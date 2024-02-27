@@ -44,8 +44,8 @@ export default function PageProof() {
     if (code && connection_id) {
       const data = {
         code: code,
-        client_id: "10916951",
-        client_secret: "WfvrhN5i_5u3n6dJBRoWj70pIkCfkgQL"
+        client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+        client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET
       };
 
       fetch(`https://myfreetest-sandbox.biapi.pro/2.0/users/me/transactions?limit=1000`, {
