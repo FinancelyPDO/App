@@ -8,7 +8,7 @@ import Image from 'next/image';
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <header className="flex justify-center items-center py-10">
+        <header className="flex justify-center items-center z-10 py-10">
             <div className="flex justify-between items-center w-full pl-4">
                 <Link href="/" legacyBehavior>
                     <a className="flex items-center">
