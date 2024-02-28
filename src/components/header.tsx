@@ -1,30 +1,59 @@
-"use client"
-import React, { useState } from 'react';
+'use client';
 
+import React from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 import Image from 'next/image';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
-
     return (
-        <header className="w-96 h-20 left-[92px] top-[30px] absolute">
-            <div className="w-20 h-20 left-0 top-0 absolute">
-                <div className="w-20 h-20 left-0 top-0 absolute bg-blue-800 rounded-full" />
-                <div className="w-8 h-10 left-[24px] top-[19px] absolute">
+        <header className="flex justify-center items-center py-10">
+            <div className="flex justify-between items-center w-full pl-4">
+                <Link href="/" legacyBehavior>
+                    <a className="flex items-center">
+                        <div className="mr-5 relative">
+                            <Image
+                                src="/images/icon/menu.svg"
+                                alt="Logo"
+                                width={48}
+                                height={48}
+                            />
+                        </div>
+                        <span className="text-3xl font-bold text-gray-800 hidden sm:block">
+                            <span className="font-normal text-white">Prove</span>
+                            <span className="font-normal text-white">nce</span>
+                        </span>
+                    </a>
+                </Link>
+                <div className="flex flex-col items-center sm:items-start">
+                    <button className="sm:hidden" onClick={() => setIsOpen(!isOpen)}>
+                        <Image
+                            src="/images/icon/menu.svg"
+                            alt="Menu"
+                            width={25}
+                            height={25}
+                        />
+                    </button>
+                    <nav className={`${isOpen ? 'block' : 'hidden'} sm:block flex flex-col`}>
+                        <Link href="/" className="text-white hover:text-tiffany_blue ml-4 px-6 py-2 text-xl transition duration-300">
+                            Products
+                        </Link>
+                        <Link href="/" className="text-white hover:text-tiffany_blue ml-4 px-6 py-2 text-xl transition duration-300">
+                            Ressources
+                        </Link>
+                        <Link href="/" className="text-white hover:text-tiffany_blue ml-4 px-6 py-2 text-xl transition duration-300">
+                            Contact
+                        </Link>
+                    </nav>
                 </div>
+                <Link href="/" className="text-tiffany_blue text-2xl hover:text-white ml-4 px-6 py-2 rounded transition duration-300 border-tiffany_blue hover:bg-tiffany_blue box-border" style={{ boxShadow: 'inset 0 0 0 2px currentColor' }}>
+                    Enroll Now
+                </Link>
             </div>
-            <div className="w-80 h-6 left-[230px] top-[28px] absolute">
-                <button className="left-0 top-0 absolute text-black text-xl font-medium font-['DM Sans']">About</button>
-                <button className="left-[113px] top-0 absolute text-black text-xl font-medium font-['DM Sans']">FAQs</button>
-                <button className="left-[214px] w-40 top-0 absolute text-black text-xl font-medium font-['DM Sans']">Quick Support</button>
-            </div>
-            <div className="w-52 h-20 left-[1044px] top-[1px] absolute bg-blue-800 rounded-lg">
-                <button className="w-52 h-20 left-0 top-0 absolute text-center text-white text-2xl font-bold font-['DM Sans']">Get Started</button>
-            </div>
-            <div className="left-[923px] top-[26px] absolute text-blue-800 text-2xl font-bold font-['DM Sans']">Login</div>
         </header>
     );
 }
+
 
 export default Header;
