@@ -1,68 +1,218 @@
 import Link from 'next/link';
 import Header from '../components/header'
+import Footer from '../components/footer'
 import Image from 'next/image';
+
 export default function Home() {
   return (
-    <div className='bg-indigo-500 bg-opacity-5'>
-      <div className=' backdrop-blur-3xl flex flex-col min-h-screen mx-auto' style={{ maxWidth: '1500px' }}>
+    <div className='bg-zinc-900'>
+      <div className='backdrop-blur-3xl flex flex-col min-h-screen mx-auto' style={{ maxWidth: '1500px' }}>
         <Header />
-        <section className="w-full h-64 left-[93px] top-[266px] absolute">
-          <button className="w-52 h-20 left-[63px] top-[187px] absolute bg-blue-800 rounded-lg">
-            <div className="w-52 h-20 left-0 top-6 absolute text-center text-white text-3xl font-bold font-['DM Sans']">Discover</div>
-          </button>
-          <div className="left-0 top-0 absolute">
-            <span className="text-slate-800 text-5xl font-bold font-['DM Sans']">Get different types of </span>
-            <span className="text-blue-800 text-5xl font-bold font-['DM Sans']">Proof !</span>
-          </div>
-          <p className="left-0 top-[90px] absolute text-slate-800 text-2xl font-medium font-['DM Sans']">You want to prove you have a certain amount of money on your bank<br />account, of you paid for a service ? Use Financely to get the proof.</p>
-        </section>
-
-        <section className="w-full h-96 left-[259px] top-[670px] absolute">
-          <h3 className="left-[266px] top-0 absolute text-center text-blue-800 text-4xl font-bold font-['DM Sans']">3 ways to use Financely</h3>
-          <div className="w-72 h-96 left-0 top-[142px] absolute bg-white rounded-lg shadow">
-            <h4 className="left-[25px] top-[132px] absolute text-blue-800 text-2xl font-bold font-['DM Sans']">Proof of reserve</h4>
-            <p className="w-56 left-[25px] top-[186px] absolute text-violet-950 text-sm font-light font-['Montserrat']">Connect your bank account to the app to prove you have a certain amount on it.</p>
-            <div className="w-14 h-14 left-[25px] top-[40px] absolute bg-indigo-500 bg-opacity-10 rounded-full">
-              <div className="w-7 h-7 left-[15px] top-[15px] absolute" />
+        <main className="flex-grow">
+          <section className='text-center min-h-screen flex flex-col justify-center relative'>
+            <div
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              style={{
+                background: 'linear-gradient(to bottom, rgba(201, 117, 156, 0.7) 40%, rgba(212, 137, 127, 0.5) 50%)',
+                filter: 'blur(180px)',
+                width: '550px',
+                height: '550px',
+              }}
+            />
+            <div className='relative z-10 mx-auto w-2/3'>
+              <h1 className="text-8xl text-lavender font-sans font-bold leading-tight text-center responsive-heading">
+                Building Trust <br /> <span className="text-white">With Privacy.</span>
+              </h1>
+              <p className="text-2xl mt-20 text-gray-300 mt-16 text-center">
+                Securely verify and validate financial integrity without ever compromising privacy with our Private Data Oracle services.
+              </p>
+              <nav className="flex justify-center mt-20 p-8">
+                <Link href="/" className="text-2xl text-black mr-16 bg-white hover:bg-lavender font-bold font-sans py-6 px-14 rounded-lg transition duration-300">
+                  Discover
+                </Link>
+                <Link href="/" className="text-xl text-white font-bold py-6 px-4">
+                  Talk to an expert
+                </Link>
+              </nav>
             </div>
-            <Link href="/page-amount">
-              <button className="w-32 h-10 left-[25px] top-[306px] absolute bg-blue-800 rounded-2xl">
-                <div className="w-32 h-10 left-0 top-2 absolute text-center text-white text-base font-bold font-['DM Sans']">Select</div>
-              </button>
-            </Link>
-
-
-          </div>
-          <div className="w-72 h-96 left-[316px] top-[142px] absolute bg-white rounded-lg shadow">
-            <h4 className="left-[25px] top-[132px] absolute text-blue-800 text-2xl font-bold font-['DM Sans']">Proof of payment</h4>
-            <p className="left-[25px] top-[186px] absolute text-violet-950 text-sm font-light font-['Montserrat']">Connect your bank account and <br />and a transaction you want to<br />prove you did.</p>
-            <div className="w-14 h-14 left-[25px] top-[40px] absolute">
-              <div className="w-14 h-14 left-0 top-0 absolute bg-indigo-500 bg-opacity-10 rounded-full" />
-              <div className="w-7 h-7 left-[15px] top-[15px] absolute">
-                <div className="w-6 h-7 left-[2.39px] top-[0.94px] absolute">
-                </div>
+          </section>
+          {/* Section 3 */}
+          <section className=" w-full" style={{ borderTop: '1px solid black', borderBottom: '1px solid black' }}>
+            <div className="flex flex-wrap items-center justify-around mx-auto px-4 h-[720px]">
+              <div className="w-full md:w-1/2 flex justify-center"
+                style={{
+                  background: 'linear-gradient(to bottom, rgba(201, 117, 156, 0.7) 40%, rgba(212, 137, 127, 0.5) 50%)',
+                  filter: 'blur(180px)',
+                  width: '550px',
+                  height: '550px',
+                }}>
+                <Image
+                  src="/images/icon/github.svg"
+                  alt="Description of the first image"
+                  width={600}
+                  height={400}
+                />
+              </div>
+              <div className="w-full md:w-1/2 mt-4 md:mt-0 px-20">
+                <h2 className="text-6xl font-tiempos-headline text-white mb-4">Proof of Integrity, Delivered.</h2>
+                <p className="text-gray-500 mb-8">
+                  Verify asset holdings in real-time, ensuring transparency and trust in financial declarations.
+                </p>
+                <Link href="/page-amount"
+                  className="inline-block bg-white ml-5 text-black hover:bg-old_rose px-4 py-2 rounded-lg transition duration-300">Dive In
+                </Link>
               </div>
             </div>
-            <Link href="/page-amount">
-              <button className="w-32 h-10 left-[26px] top-[306px] absolute bg-blue-800 rounded-2xl">
-                <div className="w-32 h-10 left-0 top-2 absolute text-center text-white text-base font-bold font-['DM Sans']">Select</div>
-              </button>
-            </Link>
-          </div>
-          <div className="w-72 h-96 left-[632px] top-[142px] absolute bg-white rounded-lg shadow">
-            <h4 className="left-[25px] top-[132px] absolute text-blue-800 text-2xl font-bold font-['DM Sans']">Proof of insurance</h4>
-            <p className="left-[25px] top-[186px] absolute text-violet-950 text-sm font-light font-['Montserrat']">Connect your bank account to <br />prove you really subscribe to <br />an incurance.</p>
-            <div className="w-14 h-14 left-[25px] top-[40px] absolute">
-              <div className="w-14 h-14 left-0 top-0 absolute bg-indigo-500 bg-opacity-10 rounded-full" />
-              <div className="w-7 h-7 left-[15px] top-[15px] absolute" />
+          </section>
+          {/* Section 4 */}
+          <section className=" w-full" style={{ borderBottom: '1px solid black' }}>
+            <div className="flex flex-wrap items-center justify-around mx-auto px-4 h-[720px]">
+              <div className="w-full md:w-1/2 mt-4 md:mt-0 px-20">
+                <h2 className="text-6xl font-tiempos-headline text-white mb-4">Trust Index Score.</h2>
+                <p className="text-gray-500 mb-8">
+                  Leverage our proprietary Trust Index to quantify and demonstrate your credibility to partners and customers.
+                </p>
+                <Link href="/"
+                  className="inline-block bg-white ml-5 text-black hover:bg-old_rose px-4 py-2 rounded-lg transition duration-300">Dive In
+                </Link>
+              </div>
+              <div className="w-full md:w-1/2 flex justify-center"
+                style={{
+                  background: 'linear-gradient(to bottom, rgba(201, 117, 156, 0.7) 40%, rgba(212, 137, 127, 0.5) 50%)',
+                  filter: 'blur(180px)',
+                  width: '550px',
+                  height: '550px',
+                }}>
+                <Image
+                  src="/images/icon/github.svg"
+                  alt="Description of the first image"
+                  width={600}
+                  height={400}
+                />
+              </div>
             </div>
-            <Link href="/page-amount">
-              <button className="w-32 h-10 left-[25px] top-[306px] absolute bg-blue-800 rounded-2xl">
-                <div className="w-32 h-10 left-0 top-2 absolute text-center text-white text-base font-bold font-['DM Sans']">Select</div>
-              </button>
-            </Link>
-          </div>
-        </section>
+          </section>
+          {/* Section 5 */}
+          <section className="w-full" style={{ borderTop: '1px solid black', borderBottom: '1px solid black' }}>
+            <div className="flex flex-wrap items-center justify-around mx-auto px-4 h-[720px]">
+              <div className="w-full md:w-1/2 flex justify-center"
+                style={{
+                  background: 'linear-gradient(to bottom, rgba(201, 117, 156, 0.7) 40%, rgba(212, 137, 127, 0.5) 50%)',
+                  filter: 'blur(180px)',
+                  width: '550px',
+                  height: '550px',
+                }}>
+                <Image
+                  src="/images/icon/github.svg"
+                  alt="Description of the first image"
+                  width={48}
+                  height={48}
+                />
+              </div>
+              <div className="w-full md:w-1/2 mt-4 md:mt-0 px-20">
+                <h2 className="text-6xl font-tiempos-headline text-white mb-4">Swap Solutions, Tailored for Foundations.</h2>
+                <p className="text-gray-500 mb-8">
+                  Provide your supporters with a secure, transparent means to contribute to your cause or project, bolstering trust through clear financial transactions.
+                </p>
+                <Link href="/"
+                  className="inline-block bg-white ml-5 text-black hover:bg-old_rose px-4 py-2 rounded-lg transition duration-300">Dive In
+                </Link>
+              </div>
+            </div>
+          </section>
+          {/* Section 6 : Final Information */}
+          <section className='flex flex-col relative my-40'>
+            <div className="w-full md:w-1/2 px-4 mb-20 ml-5">
+              <h2 className="text-7xl font-bold text-white mb-10">Make Your Move with Confidence</h2>
+              <p className="text-3xl text-gray-300">
+                Join a fast-growing community of developers and innovators connected all over the world, building the new era of the internet.
+              </p>
+            </div>
+            <div
+              className="absolute left-1/2 transform -translate-x-1/2  translate-y-80"
+              style={{
+                background: 'linear-gradient(to bottom, rgba(201, 117, 156, 0.7) 40%, rgba(212, 137, 127, 0.5) 50%)',
+                filter: 'blur(180px)',
+                width: '550px',
+                height: '550px',
+              }}
+            />
+            <div className="rounded-xl grid grid-cols-2 gap-8 px-8 pb-12">
+              {/* Grid item 1 */}
+              <a href="https://telegram.org" className="cursor-pointer">
+                <div className="p-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center space-x-4">
+                  <Image
+                    src="/images/icon/telegram.svg" // Assuming you have a dedicated Telegram icon
+                    alt="Community Chat on Telegram"
+                    width={64}
+                    height={64}
+                  />
+                  <div>
+                    <h3 className="text-3xl font-semibold mb-4 text-white">Community Chat</h3>
+                    <p className="text-xl text-gray-400">
+                      Ask general questions and chat with the worldwide community on Telegram.
+                    </p>
+                  </div>
+                </div>
+              </a>
+              {/* Grid item 2 */}
+              <a href="https://twitter.com/" className="cursor-pointer">
+                <div className="p-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center space-x-4">
+                  <Image
+                    src="/images/icon/twitter.svg" // Assuming you have a dedicated Twitter icon
+                    alt="Follow Provence on Twitter"
+                    width={64}
+                    height={64}
+                  />
+                  <div>
+                    <h3 className="text-3xl font-semibold mb-4 text-white">Twitter</h3>
+                    <p className="text-xl text-gray-400">
+                      Follow us to get the latest news and updates from across the ecosystem.
+                    </p>
+                  </div>
+                </div>
+              </a>
+              {/* Grid item 3 */}
+              <a href="https://discord.com" className="cursor-pointer">
+                <div className="p-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center space-x-4">
+                  <Image
+                    src="/images/icon/discord.svg" // Assuming you have a dedicated Discord icon
+                    alt="Developer Chat on Discord"
+                    width={64}
+                    height={64}
+                  />
+                  <div>
+                    <h3 className="text-3xl font-semibold mb-4 text-white">Developer Chat</h3>
+                    <p className="text-xl text-gray-400">
+                      Have technical questions about our tools? Ask a developer on the Community Discord.
+                    </p>
+                  </div>
+                </div>
+              </a>
+              {/* Grid item 4 */}
+              <a href="/github" className="cursor-pointer">
+                <div className="p-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center space-x-4">
+                  <Image
+                    src="/images/icon/github.svg"
+                    alt="Github Organisation"
+                    width={64}
+                    height={64}
+                    className="mr-4"
+                  />
+                  <div>
+                    <h3 className="text-3xl mb-4 font-semibold text-white">Github Organisation</h3>
+                    <p className="text-xl text-gray-400">
+                      Curious about our code or eager to contribute? Explore our repositories and become part of our GitHub community.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+          </section>
+
+        </main>
+        <Footer />
       </div>
     </div>
   );
