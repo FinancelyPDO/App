@@ -4,29 +4,27 @@ import React, { useState } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import Image from 'next/image';
-import { Card, CardHeader, CardBody } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, CardFooter, Button } from "@nextui-org/react";
+import { CheckboxGroup, Checkbox } from "@nextui-org/react";
 
 export default function ProofOfReserve() {
-  const [amount, setAmount] = useState('');
-  const [error, setError] = useState('');
-
-  const handleGenerateProof = () => {
-    if (isNaN(Number(amount)) || amount.trim() === '') {
-      setError('Please enter a valid number');
-      return;
-    } else {
-      setError('');
-      console.log('Generating proof for amount:', amount);
-      window.location.href = authUrl;
-    }
-  };
-
-  const handleChange = (e) => {
-    setAmount(e.target.value);
-    if (error) setError('');
-  };
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const [isInvalid, setIsInvalid] = React.useState(true);
 
   const authUrl = 'https://myfreetest-sandbox.biapi.pro/2.0/auth/webview/connect?client_id=10916951&redirect_uri=http://localhost:3000/PageProof';
+
+  const handleGenerateProof = () => {
+    if (selectedValues.includes('web2')) {
+      console.log('Redirecting to auth URL for web2...');
+      window.location.href = authUrl;
+    }
+    if (selectedValues.includes('web3')) {
+      console.log('Handling web3 option...');
+    }
+    if (selectedValues.length === 2) {
+      console.log('Handling both web2 and web3 options...');
+    }
+  };
 
   return (
     <div className='bg-zinc-900'>
@@ -60,103 +58,114 @@ export default function ProofOfReserve() {
               }}
             />
             <div className="rounded-xl grid grid-cols-2 gap-8 px-16 pb-12">
+              {/* NEED TO FACTORIZE THE CODE !}
               {/* Grid Proof of Reserve */}
-              <Card className="py-4 bg-lavender">
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-center">
-                  <p className="text-2xl font-bold">Proof of Reserve</p>
-                  <small className="text-default-500">12 Tracks</small>
-                  <h4 className="font-bold text-large">Frontend Radio</h4>
+              <Card isBlurred className="py-4">
+                <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
+                  <p className="text-2xl font-bold pb-2">Proof of Reserve</p>
+                  <small className="text-default-500">Connect your bank account to the app to prove you have a certain amount on it.</small>
                 </CardHeader>
-                <CardBody className="overflow-visible py-2">
-                  {/*<Image
-                    alt="Card background"
-                    className="object-cover rounded-xl"
-                    src="/images/hero-card-complete.jpeg"
-                    width={270}
-            />*/}
+                <CardBody className="overflow-visible py-2 px-10">
+                  <CheckboxGroup
+                    isRequired
+                    description="Select proof of web2 or web3"
+                    isInvalid={isInvalid}
+                    label="Select types"
+                    onValueChange={(value) => {
+                      setSelectedValues(value);
+                      setIsInvalid(value.length < 1);
+                    }}
+                  >
+                    <Checkbox value="web2">Connect Bank Account</Checkbox>
+                    <Checkbox value="web3">Connect Wallet</Checkbox>
+                  </CheckboxGroup>
                 </CardBody>
+                <CardFooter className="flex justify-center items-center">
+                  <Button onClick={handleGenerateProof} className='bg-tiffany_blue' variant="shadow" size="md">
+                    Start
+                  </Button>
+                </CardFooter>
               </Card>
-              {/* Grid item 2 */}
-              <a href="https://twitter.com/" className="cursor-pointer">
-                <div className="p-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center space-x-4">
-                  <Image
-                    src="/images/icon/twitter.svg" // Assuming you have a dedicated Twitter icon
-                    alt="Follow Provence on Twitter"
-                    width={64}
-                    height={64}
-                  />
-                  <div>
-                    <h3 className="text-3xl font-semibold mb-4 text-white">Twitter</h3>
-                    <p className="text-xl text-gray-400">
-                      Follow us to get the latest news and updates from across the ecosystem.
-                    </p>
-                  </div>
-                </div>
-              </a>
-              {/* Grid item 3 */}
-              <a href="https://discord.com" className="cursor-pointer">
-                <div className="p-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center space-x-4">
-                  <Image
-                    src="/images/icon/discord.svg" // Assuming you have a dedicated Discord icon
-                    alt="Developer Chat on Discord"
-                    width={64}
-                    height={64}
-                  />
-                  <div>
-                    <h3 className="text-3xl font-semibold mb-4 text-white">Developer Chat</h3>
-                    <p className="text-xl text-gray-400">
-                      Have technical questions about our tools? Ask a developer on the Community Discord.
-                    </p>
-                  </div>
-                </div>
-              </a>
-              {/* Grid item 4 */}
-              <a href="/github" className="cursor-pointer">
-                <div className="p-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center space-x-4">
-                  <Image
-                    src="/images/icon/github.svg"
-                    alt="Github Organisation"
-                    width={64}
-                    height={64}
-                    className="mr-4"
-                  />
-                  <div>
-                    <h3 className="text-3xl mb-4 font-semibold text-white">Github Organisation</h3>
-                    <p className="text-xl text-gray-400">
-                      Curious about our code or eager to contribute? Explore our repositories and become part of our GitHub community.
-                    </p>
-                  </div>
-                </div>
-              </a>
+              {/* Grid payment */}
+              <Card isBlurred className="py-4">
+                <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
+                  <p className="text-2xl font-bold pb-2">Proof of Payment</p>
+                  <small className="text-default-500">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                </CardHeader>
+                <CardBody className="overflow-visible py-2 px-10">
+                  <CheckboxGroup
+                    isRequired
+                    description="Select proof of web2 or web3"
+                    isInvalid={isInvalid}
+                    label="Select types"
+                    onValueChange={(value) => {
+                      setIsInvalid(value.length < 1);
+                    }}
+                  >
+                    <Checkbox value="buenos-aires">Connect Bank Account</Checkbox>
+                    <Checkbox value="sydney">Connect Wallet</Checkbox>
+                  </CheckboxGroup>
+                </CardBody>
+                <CardFooter className="flex justify-center items-center">
+                  <Button className='bg-tiffany_blue' variant="shadow" size="md">
+                    Start
+                  </Button>
+                </CardFooter>
+              </Card>
+              {/* Grid Proof of Insurance claims */}
+              <Card isBlurred className="py-4">
+                <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
+                  <p className="text-2xl font-bold pb-2">Proof of Insurance claims</p>
+                  <small className="text-default-500">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                </CardHeader>
+                <CardBody className="overflow-visible py-2 px-10">
+                  <CheckboxGroup
+                    isRequired
+                    description="Select proof of web2 or web3"
+                    isInvalid={isInvalid}
+                    label="Select types"
+                    onValueChange={(value) => {
+                      setIsInvalid(value.length < 1);
+                    }}
+                  >
+                    <Checkbox value="buenos-aires">Connect Bank Account</Checkbox>
+                    <Checkbox value="sydney">Connect Wallet</Checkbox>
+                  </CheckboxGroup>
+                </CardBody>
+                <CardFooter className="flex justify-center items-center">
+                  <Button className='bg-tiffany_blue' variant="shadow" size="md">
+                    Start
+                  </Button>
+                </CardFooter>
+              </Card>
+              {/* Grid Funds */}
+              <Card isBlurred className="py-4">
+                <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
+                  <p className="text-2xl font-bold pb-2">Proof of Funds</p>
+                  <small className="text-default-500">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                </CardHeader>
+                <CardBody className="overflow-visible py-2 px-10">
+                  <CheckboxGroup
+                    isRequired
+                    description="Select proof of web2 or web3"
+                    isInvalid={isInvalid}
+                    label="Select types"
+                    onValueChange={(value) => {
+                      setIsInvalid(value.length < 1);
+                    }}
+                  >
+                    <Checkbox value="buenos-aires">Connect Bank Account</Checkbox>
+                    <Checkbox value="sydney">Connect Wallet</Checkbox>
+                  </CheckboxGroup>
+                </CardBody>
+                <CardFooter className="flex justify-center items-center">
+                  <Button className='bg-tiffany_blue' variant="shadow" size="md">
+                    Start
+                  </Button>
+                </CardFooter>
+              </Card>
             </div>
-
           </section>
-
-          <div className="w-[450px] h-[523px] relative top-[93px] bg-white rounded-[20px] border border-indigo-500">
-            <h1 className="pt-[50px] text-center text-black text-[28px] font-bold">Proof of Reserve</h1>
-            <p className="mt-[49px] mx-[78px] text-center text-violet-950 text-sm font-light">Connect your bank account to the app to prove you have a certain amount on it.</p>
-            <div className="mt-[83px] mx-[35px]">
-              <label className="block text-indigo-500 text-xs font-bold mb-[40px]">Amount to prove</label>
-              <input
-                type="text"
-                value={amount}
-                onChange={handleChange}
-                placeholder="10,000$"
-                className="w-full h-[60px] bg-indigo-500 bg-opacity-10 rounded-[10px] pl-[18px] text-indigo-400 text-base font-medium"
-              />
-              {error && <p className="text-red-500 text-xs mt-[20px]">{error}</p>}
-            </div>
-            <div className="absolute bottom-[20px] left-1/2 transform translate-x-[-50%]">
-              <button
-                onClick={handleGenerateProof}
-                className="w-[380px] h-[60px] bg-indigo-500 rounded-[10px] text-white text-xl font-medium flex justify-center items-center"
-              >
-                Generate Proof
-              </button>
-            </div>
-          </div>
-
-
         </main >
         <Footer />
       </div >
