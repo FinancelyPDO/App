@@ -46,7 +46,7 @@ export default function Home() {
               </p>
               <nav className="flex justify-center mt-20 p-8">
                 <Link href="/" className="text-2xl text-black mr-16 bg-white hover:bg-lavender font-bold font-sans py-4 px-14 rounded-lg transition duration-300">
-                  Discover
+                  Launch
                 </Link>
                 <Link href="/" className="text-xl text-white font-bold py-4 px-4">
                   Talk to an expert
@@ -65,19 +65,20 @@ export default function Home() {
                   height: '550px',
                 }}/>
                 <Image
-                  src="/images/icon/alert-octagon.svg"
+                  src="/images/icon/IsometricProof.svg"
                   alt="Description of the first image"
                   width={400}
                   height={400}
                   className='z-5'
                 />
+                {/*
                 <Image
                   src="/images/icon/shield2.svg"
                   alt="Description of the first image"
                   width={150}
                   height={150}
                   className='absolute z-10 transform translate-x-28 translate-y-72'
-                />
+                /> */}
               </div>
               <div className="w-full md:w-1/2 mt-4 md:mt-0 px-20">
                 <h2 className="text-6xl font-bold font-tiempos-headline text-white mb-6">Proof of Integrity, Delivered.</h2>

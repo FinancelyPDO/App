@@ -27,9 +27,7 @@ export default function ProofOfReserve() {
 
   return (
     <div className="flex justify-center items-center w-screen h-screen bg-indigo-500 bg-opacity-5">
-      <BackgroundDecorations />
       <main className="w-[450px] h-[616px] relative">
-        <BackgroundCircles />
         <div className="w-[450px] h-[523px] relative top-[93px] bg-white rounded-[20px] border border-indigo-500">
           <h1 className="pt-[50px] text-center text-black text-[28px] font-bold">Proof of Reserve</h1>
           <p className="mt-[49px] mx-[78px] text-center text-violet-950 text-sm font-light">Connect your bank account to the app to prove you have a certain amount on it.</p>
@@ -57,23 +55,5 @@ export default function ProofOfReserve() {
     
       </main >
     </div >
-  );
-}
-
-function BackgroundDecorations() {
-  return (
-    <>
-      {/* <div className="w-[2610px] h-[3033px] left-[-3519.74px] top-[-1094px] absolute bg-cover" />
-      <div className="origin-top-left rotate-[80.35deg] w-[2610px] h-[3033px] left-[-963.95px] top-[-1088.27px] absolute bg-cover" /> */}
-    </>
-  );
-}
-
-function BackgroundCircles() {
-  return (
-    <>
-      {/* <div className="w-[670px] h-[670px] absolute left-[983px] top-[-78px] bg-indigo-500 bg-opacity-40 rounded-full blur-[309px]" /> */}
-      {/* <div className="w-[678px] h-[678px] absolute left-[-331px] top-[100px] bg-indigo-500 bg-opacity-40 rounded-full blur-[309px]" /> */}
-    </>
   );
 }
