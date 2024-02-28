@@ -24,7 +24,7 @@ export default function PageProof(amount:number) {
         client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET
       };
 
-      fetch(`https://myfreetest-sandbox.biapi.pro/2.0/auth/token/access`, {
+      fetch(`https://thisisdenver-sandbox.biapi.pro/2.0/auth/token/access`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default function PageProof(amount:number) {
         client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET
       };
 
-      fetch(`https://myfreetest-sandbox.biapi.pro/2.0/users/me/transactions?limit=1000`, {
+      fetch(`https://thisisdenver-sandbox.biapi.pro/2.0/users/me/transactions?limit=1000`, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + accessToken,
@@ -76,7 +76,7 @@ export default function PageProof(amount:number) {
         client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET
       };
 
-      fetch(`https://myfreetest-sandbox.biapi.pro/2.0/users/me/accounts`, {
+      fetch(`https://thisisdenver-sandbox.biapi.pro/2.0/users/me/accounts`, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + accessToken,
@@ -103,7 +103,7 @@ export default function PageProof(amount:number) {
         scope: "payments:admin"
       };
 
-      fetch(`https://myfreetest-sandbox.biapi.pro/2.0/auth/token`, {
+      fetch(`https://thisisdenver-sandbox.biapi.pro/2.0/auth/token`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ export default function PageProof(amount:number) {
         client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET
       };
 
-      fetch(`https://myfreetest-sandbox.biapi.pro/2.0/payments`, {
+      fetch(`https://thisisdenver-sandbox.biapi.pro/2.0/payments`, {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + payToken,
