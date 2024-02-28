@@ -24,7 +24,7 @@ export default function ProofOfReserve() {
     }
   };
 
-  const authUrl = 'https://myfreetest-sandbox.biapi.pro/2.0/auth/webview/connect?client_id=10916951&redirect_uri=http://localhost:3000/PageProof';
+  const authUrl = 'https://thisisdenver-sandbox.biapi.pro/2.0/auth/webview/connect?client_id=65388666&redirect_uri=http://localhost:3000/PageProof';
 
   return (
     <div className='bg-zinc-900'>
