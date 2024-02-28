@@ -33,7 +33,7 @@ export default function ProofOfReserve() {
       <div className='backdrop-blur-3xl flex flex-col min-h-screen mx-auto' style={{ maxWidth: '1500px' }}>
         <Header />
         <main className="flex-grow">
-          {/* Section 6 : Final Information */}
+          {/* Section 1 : List Proof */}
           <section className='flex flex-col relative my-40'>
             <div className="w-full md:w-1/2 px-4 mb-20 ml-32">
               <h2 className="text-7xl font-bold text-white mb-10">Elevate Trust with Verifiable Proofs</h2>
@@ -59,11 +59,11 @@ export default function ProofOfReserve() {
                 height: '330px',
               }}
             />
-            <div className="rounded-xl grid grid-cols-2 gap-8 px-8 pb-12">
-              {/* Grid item 1 */}
-              <Card className="py-4">
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                  <p className="text-tiny uppercase font-bold">Daily Mix</p>
+            <div className="rounded-xl grid grid-cols-2 gap-8 px-16 pb-12">
+              {/* Grid Proof of Reserve */}
+              <Card className="py-4 bg-lavender">
+                <CardHeader className="pb-0 pt-2 px-4 flex-col items-center">
+                  <p className="text-2xl font-bold">Proof of Reserve</p>
                   <small className="text-default-500">12 Tracks</small>
                   <h4 className="font-bold text-large">Frontend Radio</h4>
                 </CardHeader>
