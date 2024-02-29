@@ -14,7 +14,7 @@ const Header = () => {
                     <a className="flex items-center">
                         <div className="mr-5 relative">
                             <Image
-                                src="/images/icon/menu.svg"
+                                src="/images/Logo.png"
                                 alt="Logo"
                                 width={48}
                                 height={48}
