@@ -12,7 +12,7 @@ import { NetworkProvider } from '@/contexts/NetworkContext';
 import { ProfileProvider } from '@/contexts/ProfileContext';
 import { Switch } from "@nextui-org/react";
 
-export default function ProofOfReserve() {
+export default function AllProofs() {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
   const [isInvalid, setIsInvalid] = React.useState(true);
 
@@ -45,7 +45,7 @@ export default function ProofOfReserve() {
     }
   };
 
-  const authUrl = 'https://thisisdenver-sandbox.biapi.pro/2.0/auth/webview/connect?client_id=65388666&redirect_uri=http://localhost:3000/PageProof';
+  const authUrl = 'http://localhost:8000/api/web2/connection';
 
   return (
     <div className='bg-zinc-900'>
