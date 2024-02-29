@@ -45,7 +45,7 @@ export default function Home() {
                 Securely verify and validate financial integrity without ever compromising privacy with our Private Data Oracle services.
               </p>
               <nav className="flex justify-center mt-20 p-8">
-                <Link href="/" className="text-2xl text-black mr-16 bg-white hover:bg-lavender font-bold font-sans py-4 px-14 rounded-lg transition duration-300">
+                <Link href="/page-amount" className="text-2xl text-black mr-16 bg-white hover:bg-lavender font-bold font-sans py-4 px-14 rounded-lg transition duration-300">
                   Launch
                 </Link>
                 <Link href="/" className="text-xl text-white font-bold py-4 px-4">
@@ -63,7 +63,7 @@ export default function Home() {
                   filter: 'blur(180px)',
                   width: '550px',
                   height: '550px',
-                }}/>
+                }} />
                 <Image
                   src="/images/icon/IsometricProof.svg"
                   alt="Description of the first image"
