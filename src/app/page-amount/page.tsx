@@ -10,10 +10,20 @@ import ConnectButton from '../../components/ConnectButton/ConnectButton';
 import { EthereumProvider } from '@/contexts/EthereumContext';
 import { NetworkProvider } from '@/contexts/NetworkContext';
 import { ProfileProvider } from '@/contexts/ProfileContext';
+import { Switch } from "@nextui-org/react";
 
 export default function ProofOfReserve() {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
   const [isInvalid, setIsInvalid] = React.useState(true);
+
+  // To have the value of the switch
+  const handleValueChange = (value: string, isSelected: boolean) => {
+    if (isSelected) {
+      setSelectedValues((prevValues) => [...prevValues, value]);
+    } else {
+      setSelectedValues((prevValues) => prevValues.filter((item) => item !== value));
+    }
+  };
 
   const handleGenerateProof = () => {
     if (selectedValues.includes('web2')) {
@@ -37,11 +47,22 @@ export default function ProofOfReserve() {
         <main className="flex-grow">
           {/* Section 1 : List Proof */}
           <section className='flex flex-col relative my-40'>
-            <div className="w-full md:w-1/2 px-4 mb-20 ml-32">
-              <h2 className="text-7xl font-bold text-white mb-10">Elevate Trust with Verifiable Proofs</h2>
-              <p className="text-xl text-gray-300">
-                Unveil the truth with a suite of verifiable proofs. Our platform provides a range of proof generation services designed to meet diverse financial and personal verification needs.
-              </p>
+            <div className="flex flex-row items-start ml-20 space-x-4">
+              <div className="flex-1 px-4 mb-20">
+                <h2 className="text-7xl font-bold text-white mb-10">Elevate Trust with Verifiable Proofs</h2>
+                <p className="text-xl text-gray-300">
+                  Unveil the truth with a suite of verifiable proofs. Our platform provides a range of proof generation services designed to meet diverse financial and personal verification needs.
+                </p>
+              </div>
+              <div className="flex-1 flex justify-center items-center z-10">
+                <EthereumProvider>
+                  <NetworkProvider>
+                    <ProfileProvider>
+                      <ConnectButton />
+                    </ProfileProvider>
+                  </NetworkProvider>
+                </EthereumProvider>
+              </div>
             </div>
             <div
               className="absolute left-1/2 transform -translate-x-1/2  translate-y-80"
@@ -70,31 +91,18 @@ export default function ProofOfReserve() {
                   <small className="text-default-500">Connect your bank account to the app to prove you have a certain amount on it.</small>
                 </CardHeader>
                 <CardBody className="overflow-visible py-2 px-10">
-                  <CheckboxGroup
-                    isRequired
-                    description="Select proof of web2 or web3"
-                    isInvalid={isInvalid}
-                    label="Select types"
-                    onValueChange={(value) => {
-                      setSelectedValues(value);
-                      setIsInvalid(value.length < 1);
-                    }}
-                  >
-                    <Checkbox value="web2">Connect Bank Account</Checkbox>
-                    <Checkbox value="web3">Connect Wallet</Checkbox>
-                  </CheckboxGroup>
+                  <Switch className='mb-3'
+                    isSelected={selectedValues.includes('web2')} onValueChange={(isSelected) => handleValueChange('web2', isSelected)}>
+                    Connect Web2 Data
+                  </Switch>
+                  <Switch isSelected={selectedValues.includes('web3')} onValueChange={(isSelected) => handleValueChange('web3', isSelected)}>
+                    Connect Web3 Data
+                  </Switch>
                 </CardBody>
                 <CardFooter className="flex justify-center items-center">
                   <Button onClick={handleGenerateProof} className='bg-tiffany_blue' variant="shadow" size="md">
                     Start
                   </Button>
-                  <EthereumProvider>
-                    <NetworkProvider>
-                      <ProfileProvider>
-                          <ConnectButton />
-                      </ProfileProvider>
-                    </NetworkProvider>
-                  </EthereumProvider>
                 </CardFooter>
               </Card>
               {/* Grid payment */}
@@ -104,18 +112,13 @@ export default function ProofOfReserve() {
                   <small className="text-default-500">Connect your bank account to the app to prove you have a certain amount on it.</small>
                 </CardHeader>
                 <CardBody className="overflow-visible py-2 px-10">
-                  <CheckboxGroup
-                    isRequired
-                    description="Select proof of web2 or web3"
-                    isInvalid={isInvalid}
-                    label="Select types"
-                    onValueChange={(value) => {
-                      setIsInvalid(value.length < 1);
-                    }}
-                  >
-                    <Checkbox value="buenos-aires">Connect Bank Account</Checkbox>
-                    <Checkbox value="sydney">Connect Wallet</Checkbox>
-                  </CheckboxGroup>
+                  <Switch className='mb-3'
+                    isSelected={selectedValues.includes('web2')} onValueChange={(isSelected) => handleValueChange('web2', isSelected)}>
+                    Connect Web2 Data
+                  </Switch>
+                  <Switch isSelected={selectedValues.includes('web3')} onValueChange={(isSelected) => handleValueChange('web3', isSelected)}>
+                    Connect Web3 Data
+                  </Switch>
                 </CardBody>
                 <CardFooter className="flex justify-center items-center">
                   <Button className='bg-tiffany_blue' variant="shadow" size="md">

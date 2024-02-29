@@ -1,14 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useEthereum } from '@/contexts/EthereumContext';
+
+interface ResponseData {
+  isMaliciousAddress: boolean;
+}
 
 const ConnectButton: React.FC = () => {
   const { connect, disconnect, account } = useEthereum();
-  const [response, setResponse] = useState({});
+  const [response, setResponse] = useState<ResponseData>({ isMaliciousAddress: false });
   const [loading, setLoading] = useState(false);
-  let isFraudulent = false;
+  const isFraudulentRef = useRef(false);
 
   const handleClick = async () => {
-    console.log('handleClick');
     try {
       const response = await fetch("https://api.harpie.io/v2/validateAddress", {
         method: "POST",
@@ -29,20 +32,17 @@ const ConnectButton: React.FC = () => {
     } finally {
       setLoading(true);
     }
-    
   };
 
   const handleConnect = () => {
     connect();
-    console.log('account', account);
   };
 
   const handleDisconnect = () => {
-    console.log('account', account);
     disconnect();
-    setResponse({});
+    setResponse({ isMaliciousAddress: false });
     setLoading(false);
-    isFraudulent = false;
+    isFraudulentRef.current = false;
   };
 
   useEffect(() => {
@@ -53,33 +53,25 @@ const ConnectButton: React.FC = () => {
 
   useEffect(() => {
     if (loading) {
-      isFraudulent = response.isMaliciousAddress;
-      if (isFraudulent) {
+      isFraudulentRef.current = response.isMaliciousAddress;
+      if (isFraudulentRef.current) {
         alert('Error: The address is fraudulent.');
-        console.log('response', response.isMaliciousAddress);
-        console.log(isFraudulent);
         handleDisconnect();
+      } else {
+        alert('The address is not fraudulent.');
       }
-     else {
-      alert('The address is not fraudulent.');
-      console.log('account is fr', account);
-      console.log('response', response.isMaliciousAddress);
-      console.log(isFraudulent);
     }
-  }
   }, [loading]);
 
   return (
     <div>
       <button
-        className="m-2 bg-lukso-pink text-white font-bold py-2 px-4 rounded"
+        className="m-2 bg-lavender-600 hover:bg-tiffany_blue text-gray-800 font-bold py-4 px-14 rounded-lg shadow-lg hover:shadow-xl transition duration-150 ease-in-out disabled:opacity-50 disabled:bg-blue-300"
         onClick={account ? handleDisconnect : handleConnect}
-        disabled={isFraudulent}
+        disabled={isFraudulentRef.current}
       >
         {account ? 'Disconnect' : 'Connect'}
       </button>
-
-      {/* {loading && <div>Loading...</div>} */}
     </div>
   );
 };
