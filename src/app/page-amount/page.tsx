@@ -16,6 +16,13 @@ export default function ProofOfReserve() {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
   const [isInvalid, setIsInvalid] = React.useState(true);
 
+  const [account, setAccount] = useState<string | null>(null);
+
+  const handleAccountChange = (newAccount: string) => {
+    setAccount(newAccount);
+    console.log('Account:', newAccount);
+  };
+
   // To have the value of the switch
   const handleValueChange = (value: string, isSelected: boolean) => {
     if (isSelected) {
@@ -58,7 +65,7 @@ export default function ProofOfReserve() {
                 <EthereumProvider>
                   <NetworkProvider>
                     <ProfileProvider>
-                      <ConnectButton />
+                      <ConnectButton onAccountChange={handleAccountChange} />
                     </ProfileProvider>
                   </NetworkProvider>
                 </EthereumProvider>
