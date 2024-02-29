@@ -45,7 +45,7 @@ export default function PageProof() {
       })
         .then(response => response.json())
         .then(data => {
-          alert("Balance is: " + data);
+          alert("Balance is: " + data.balance);
         })
         .catch(error => {
           console.error('Error:', error);
