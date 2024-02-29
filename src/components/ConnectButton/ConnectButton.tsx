@@ -4,8 +4,10 @@ import { useEthereum } from '@/contexts/EthereumContext';
 interface ResponseData {
   isMaliciousAddress: boolean;
 }
-
-const ConnectButton: React.FC = () => {
+interface ConnectButtonProps {
+  onAccountChange: (newAccount: string) => void;
+}
+const ConnectButton: React.FC<ConnectButtonProps> = ({ onAccountChange }) => {
   const { connect, disconnect, account } = useEthereum();
   const [response, setResponse] = useState<ResponseData>({ isMaliciousAddress: false });
   const [loading, setLoading] = useState(false);
@@ -48,6 +50,7 @@ const ConnectButton: React.FC = () => {
   useEffect(() => {
     if (account) {
       handleClick();
+      onAccountChange(account);
     }
   }, [account]);
 
