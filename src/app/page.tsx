@@ -93,8 +93,8 @@ export default function Home() {
           </section>
           {/* Section 4 */}
           <section className="w-full mt-20">
-            <div className="flex flex-wrap items-center justify-around mx-auto px-4 h-[720px]">
-              <div className="w-full md:w-1/2 mt-4 md:mt-0 px-20">
+            <div className="flex flex-wrap items-center justify-around mx-auto mt-32 px-4">
+              <div className="w-full md:w-1/2 mt-4 md:mt-0 px-20 ">
                 <h2 className="text-6xl font-bold font-tiempos-headline text-white mb-6">Trust Index Score.</h2>
                 <p className="text-gray-500 mb-8 text-xl">
                   Leverage our proprietary Trust Index to quantify and demonstrate your credibility to partners and customers.
@@ -103,37 +103,43 @@ export default function Home() {
                   className="inline-block bg-white ml-5 text-black hover:bg-old_rose py-3 px-10 rounded-lg transition duration-300">Dive In
                 </Link>
               </div>
-              <div className="w-full md:w-1/2 flex justify-center"
-                style={{
+              <div className="w-full md:w-1/2 flex justify-center relative">
+                <div style={{
                   background: 'linear-gradient(to bottom, rgba(201, 117, 156, 0.7) 40%, rgba(212, 137, 127, 0.5) 50%)',
                   filter: 'blur(180px)',
                   width: '550px',
                   height: '550px',
-                }}>
+                  position: 'absolute',
+                  zIndex: '1',
+                }} />
                 <Image
-                  src="/images/icon/github.svg"
+                  src="/images/icon/credit-score.svg"
                   alt="Description of the first image"
-                  width={600}
-                  height={400}
+                  width={550}
+                  height={550}
+                  className='z-5 relative'
                 />
               </div>
             </div>
           </section>
           {/* Section 5 */}
           <section className="w-full mt-20">
-            <div className="flex flex-wrap items-center justify-around mx-auto px-4 h-[720px]">
-              <div className="w-full md:w-1/2 flex justify-center"
-                style={{
-                  background: 'linear-gradient(to bottom, rgba(201, 117, 156, 0.7) 40%, rgba(212, 137, 127, 0.5) 50%)',
+            <div className="flex flex-wrap items-center justify-around mx-auto mt-20 px-4">
+              <div className="w-full md:w-1/2 flex justify-center relative">
+                <div className="absolute transform translate-x-10 " style={{
+                  background: 'linear-gradient(to bottom, rgba(83,32,73,1) 30%, rgba(82,55,149,1) 93%)',
                   filter: 'blur(180px)',
                   width: '550px',
                   height: '550px',
-                }}>
+                  position: 'absolute',
+                  zIndex: '1',
+                }} />
                 <Image
-                  src="/images/icon/github.svg"
+                  src="/images/icon/swap2.svg"
                   alt="Description of the first image"
-                  width={48}
-                  height={48}
+                  width={550}
+                  height={550}
+                  className='z-10'
                 />
               </div>
               <div className="w-full md:w-1/2 mt-4 md:mt-0 px-20">
@@ -149,9 +155,9 @@ export default function Home() {
           </section>
           {/* Section 6 : Final Information */}
           <section className='flex flex-col relative my-40'>
-            <div className="w-full md:w-1/2 px-4 mb-20 ml-5">
-              <h2 className="text-7xl font-bold text-white mb-10">Make Your Move with Confidence</h2>
-              <p className="text-3xl text-gray-300">
+            <div className="w-full md:w-1/2 px-4 mb-20 ml-8">
+              <h2 className="text-6xl font-bold text-white mb-10">Make Your Move with Confidence</h2>
+              <p className="text-2xl text-gray-400">
                 Join a fast-growing community of developers and innovators connected all over the world, building the new era of the internet.
               </p>
             </div>
@@ -162,17 +168,19 @@ export default function Home() {
                 filter: 'blur(180px)',
                 width: '550px',
                 height: '550px',
+                position: 'absolute',
+                zIndex: '1',
               }}
             />
-            <div className="rounded-xl grid grid-cols-2 gap-8 px-8 pb-12">
+            <div className="rounded-xl grid grid-cols-2 gap-8 px-8 pb-12 relative">
               {/* Grid item 1 */}
-              <a href="https://telegram.org" className="cursor-pointer">
+              <a href="https://t.me/+p9c_Y7ksKHowM2Y0" className="cursor-pointer z-10">
                 <div className="p-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center space-x-4">
                   <Image
                     src="/images/icon/telegram.svg" // Assuming you have a dedicated Telegram icon
                     alt="Community Chat on Telegram"
-                    width={64}
-                    height={64}
+                    width={48}
+                    height={48}
                   />
                   <div>
                     <h3 className="text-3xl font-semibold mb-4 text-white">Community Chat</h3>
@@ -183,13 +191,13 @@ export default function Home() {
                 </div>
               </a>
               {/* Grid item 2 */}
-              <a href="https://twitter.com/" className="cursor-pointer">
+              <a href="https://twitter.com/provehance" className="cursor-pointer z-10">
                 <div className="p-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center space-x-4">
                   <Image
                     src="/images/icon/twitter.svg" // Assuming you have a dedicated Twitter icon
-                    alt="Follow Provence on Twitter"
-                    width={64}
-                    height={64}
+                    alt="Twitter"
+                    width={48}
+                    height={48}
                   />
                   <div>
                     <h3 className="text-3xl font-semibold mb-4 text-white">Twitter</h3>
@@ -200,13 +208,13 @@ export default function Home() {
                 </div>
               </a>
               {/* Grid item 3 */}
-              <a href="https://discord.com" className="cursor-pointer">
+              <a href="https://www.linkedin.com/company/provehance" className="cursor-pointer z-10">
                 <div className="p-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center space-x-4">
                   <Image
-                    src="/images/icon/discord.svg" // Assuming you have a dedicated Discord icon
-                    alt="Developer Chat on Discord"
-                    width={64}
-                    height={64}
+                    src="/images/icon/linkedin.svg" // Assuming you have a dedicated Discord icon
+                    alt="linkedin"
+                    width={48}
+                    height={48}
                   />
                   <div>
                     <h3 className="text-3xl font-semibold mb-4 text-white">Developer Chat</h3>
@@ -217,7 +225,7 @@ export default function Home() {
                 </div>
               </a>
               {/* Grid item 4 */}
-              <a href="/github" className="cursor-pointer">
+              <a href="https://github.com/Provehance/" className="cursor-pointer z-10">
                 <div className="p-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center space-x-4">
                   <Image
                     src="/images/icon/github.svg"
@@ -229,7 +237,7 @@ export default function Home() {
                   <div>
                     <h3 className="text-3xl mb-4 font-semibold text-white">Github Organisation</h3>
                     <p className="text-xl text-gray-400">
-                      Curious about our code or eager to contribute? Explore our repositories and become part of our GitHub community.
+                      Curious about our code or eager to contribute? Explore our repositories and become part of our community.
                     </p>
                   </div>
                 </div>
@@ -241,6 +249,6 @@ export default function Home() {
         </main>
         <Footer />
       </div>
-    </div>
+    </div >
   );
 }
