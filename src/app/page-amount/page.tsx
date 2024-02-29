@@ -6,6 +6,10 @@ import Footer from '../../components/footer';
 import Image from 'next/image';
 import { Card, CardHeader, CardBody, CardFooter, Button } from "@nextui-org/react";
 import { CheckboxGroup, Checkbox } from "@nextui-org/react";
+import ConnectButton from '../../components/ConnectButton/ConnectButton';
+import { EthereumProvider } from '@/contexts/EthereumContext';
+import { NetworkProvider } from '@/contexts/NetworkContext';
+import { ProfileProvider } from '@/contexts/ProfileContext';
 
 export default function ProofOfReserve() {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
@@ -84,6 +88,13 @@ export default function ProofOfReserve() {
                   <Button onClick={handleGenerateProof} className='bg-tiffany_blue' variant="shadow" size="md">
                     Start
                   </Button>
+                  <EthereumProvider>
+                    <NetworkProvider>
+                      <ProfileProvider>
+                          <ConnectButton />
+                      </ProfileProvider>
+                    </NetworkProvider>
+                  </EthereumProvider>
                 </CardFooter>
               </Card>
               {/* Grid payment */}
