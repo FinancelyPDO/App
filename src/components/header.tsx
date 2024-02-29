@@ -21,8 +21,8 @@ const Header = () => {
                             />
                         </div>
                         <span className="text-2xl font-bold text-gray-800 hidden sm:block">
-                            <span className="font-normal text-white">Prove</span>
-                            <span className="font-normal text-white">nce</span>
+                            <span className="font-normal text-2xl text-white">Prove</span>
+                            <span className="font-normal text-2xl text-white">hance</span>
                         </span>
                     </a>
                 </Link>
@@ -45,9 +45,12 @@ const Header = () => {
                         <Link href="/" className="text-white hover:text-tiffany_blue ml-4 px-6 py-2 text-xl transition duration-300">
                             Contact
                         </Link>
+                        <Link href="/" className={`${isOpen ? 'block' : 'hidden'} sm:hidden flex flex-col  text-tiffany_blue text-2xl mr-4 hover:text-white ml-4 px-6 py-2 rounded transition duration-300 border-tiffany_blue hover:bg-tiffany_blue box-border`} style={{ boxShadow: 'inset 0 0 0 2px currentColor' }}>
+                            Enroll Now
+                        </Link>
                     </nav>
                 </div>
-                <Link href="/" className="text-tiffany_blue text-2xl hover:text-white ml-4 px-6 py-2 rounded transition duration-300 border-tiffany_blue hover:bg-tiffany_blue box-border" style={{ boxShadow: 'inset 0 0 0 2px currentColor' }}>
+                <Link href="/" className={`hidden sm:block flex flex-col  text-tiffany_blue text-2xl mr-4 hover:text-white ml-4 px-6 py-2 rounded transition duration-300 border-tiffany_blue hover:bg-tiffany_blue box-border`} style={{ boxShadow: 'inset 0 0 0 2px currentColor' }}>
                     Enroll Now
                 </Link>
             </div>
