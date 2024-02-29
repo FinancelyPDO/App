@@ -39,7 +39,7 @@ export default function Home() {
             />
             <div className='relative z-10 mx-auto w-2/3'>
               <h1 className="text-8xl text-lavender font-sans font-bold leading-tight text-center responsive-heading">
-                Building Trust <br /> <span className="text-white">With Privacy.</span>
+                Building Trust <br /> <span className="text-white text-8xl">With Privacy.</span>
               </h1>
               <p className="text-2xl mt-20 text-gray-300 mt-16 text-center">
                 Securely verify and validate financial integrity without ever compromising privacy with our Private Data Oracle services.
