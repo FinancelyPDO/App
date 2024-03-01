@@ -14,6 +14,7 @@ import Image from 'next/image';
 import { Select, SelectItem } from "@nextui-org/react";
 import { ListProofs } from "../../components/constants/listProofs";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
+import { getAddressBalance } from '../../components/web3address';
 
 export default function AllProofs() {
   const [selectedValuesCard1, setSelectedValuesCard1] = useState<string[]>([]);
@@ -48,7 +49,7 @@ export default function AllProofs() {
     }
   };
 
-  const handleGenerateProof = (selectedValues: string[]) => {
+  const handleGenerateProof = async (selectedValues: string[]) => {
     localStorage.setItem('amount', amount); // Save the amount to local storage
 
     if (selectedValues.includes('web2') && !selectedValues.includes('web3')) {
@@ -56,6 +57,9 @@ export default function AllProofs() {
       window.location.href = authUrl;
     } else if (!selectedValues.includes('web2') && selectedValues.includes('web3')) {
       console.log('Handling web3 option...');
+      const balanceWeb3 = await getAddressBalance(account);
+      localStorage.setItem('Web3Balance', balanceWeb3);
+      window.location.href = '/proof-of-reserve';  
     } else if (selectedValues.includes('web2') && selectedValues.includes('web3')) {
       console.log('Handling both web2 and web3 options...');
     }
