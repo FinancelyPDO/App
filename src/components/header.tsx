@@ -20,9 +20,8 @@ const Header = () => {
                                 height={48}
                             />
                         </div>
-                        <span className="text-2xl font-bold text-gray-800 hidden sm:block">
-                            <span className="font-normal text-2xl text-white">Prove</span>
-                            <span className="font-normal text-2xl text-white">hance</span>
+                        <span className="text-2xl font-normal font-bold text-white hidden sm:block">
+                            Provehance
                         </span>
                     </a>
                 </Link>
