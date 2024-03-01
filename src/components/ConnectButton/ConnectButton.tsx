@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useEthereum } from '@/contexts/EthereumContext';
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
+import Image from 'next/image';
 
 interface ResponseData {
   isMaliciousAddress: boolean;
@@ -12,6 +14,10 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onAccountChange }) => {
   const [response, setResponse] = useState<ResponseData>({ isMaliciousAddress: false });
   const [loading, setLoading] = useState(false);
   const isFraudulentRef = useRef(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState('');
+
+  const closeModal = () => setIsModalOpen(false);
 
   const handleClick = async () => {
     try {
@@ -46,6 +52,7 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onAccountChange }) => {
     setResponse({ isMaliciousAddress: false });
     setLoading(false);
     isFraudulentRef.current = false;
+    setIsModalOpen(false); // Ensure the modal is closed upon disconnect.
   };
 
   useEffect(() => {
@@ -59,11 +66,12 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onAccountChange }) => {
     if (loading) {
       isFraudulentRef.current = response.isMaliciousAddress;
       if (isFraudulentRef.current) {
-        alert('Error: The address is fraudulent.');
+        setModalContent('Error: The address is fraudulent.');
         handleDisconnect();
       } else {
-        alert('The address is not fraudulent.');
+        setModalContent('The address is not fraudulent.');
       }
+      setIsModalOpen(true); // Open the modal with the content set above.
     }
   }, [loading]);
 
@@ -76,6 +84,30 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onAccountChange }) => {
       >
         {account ? 'Disconnect' : 'Connect'}
       </button>
+      {isModalOpen && (
+        <Modal backdrop={'blur'} isOpen={isModalOpen} onClose={closeModal}>
+          <ModalContent>
+            <ModalHeader className="flex">
+              <Image
+                src="/images/Harpie-Aeonik-Logo.svg"
+                alt="Logo"
+                width={100}
+                height={100}
+              />
+              <p>Address Validation Result</p>
+            </ModalHeader>
+            <ModalBody>
+              <p>{modalContent}</p>
+            </ModalBody>
+            <ModalFooter className="flex justify-between items-center">
+              <p>Power by <span className='font-bold'>Harpie</span> </p>
+              <Button color="danger" variant="light" onPress={closeModal}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </div>
   );
 };
