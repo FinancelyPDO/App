@@ -19,6 +19,7 @@ export default function Dashboard() {
 	// CALL POWENS FOR KEY ECHANGES
 	const searchParams = useSearchParams()
 	const [accessToken, setAccessToken] = useState("");
+	const [web3balance, setWeb3Balance] = useState(0);
 
 	useEffect(() => {
 		const code = searchParams.get('code')
@@ -96,6 +97,10 @@ export default function Dashboard() {
 		setAmount(storedAmount);
 	}, []);
 
+	useEffect(() => { // Dynamicly update amount
+		const web3balance = parseFloat(localStorage.getItem('Web3Balance') || '0');
+		setWeb3Balance(web3balance);
+	}, []);
 
 	return (
 		<main className='bg-zinc-900'>
@@ -129,9 +134,9 @@ export default function Dashboard() {
 							height: '330px',
 						}}
 					/>
-					{accessToken ? (
+					{accessToken || web3balance  ? (
 						<>
-							{amount > 0 && (
+							{amount > 0 || web3balance && (
 								<>
 									{/*Proof of reserve*/}
 									<section className="flex items-center justify-center my-6">
