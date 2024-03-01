@@ -5,7 +5,7 @@ interface ResponseData {
   isMaliciousAddress: boolean;
 }
 interface ConnectButtonProps {
-  onAccountChange: (newAccount: string) => void;
+  onAccountChange: (newAccount: string | null) => void;
 }
 const ConnectButton: React.FC<ConnectButtonProps> = ({ onAccountChange }) => {
   const { connect, disconnect, account } = useEthereum();
@@ -42,6 +42,7 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onAccountChange }) => {
 
   const handleDisconnect = () => {
     disconnect();
+    onAccountChange(null);
     setResponse({ isMaliciousAddress: false });
     setLoading(false);
     isFraudulentRef.current = false;
