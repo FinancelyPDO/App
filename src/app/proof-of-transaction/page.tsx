@@ -6,7 +6,7 @@ import Footer from '../../components/footer';
 import Image from 'next/image';
 import { Card, CardHeader, CardBody, CardFooter, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Autocomplete, AutocompleteItem } from "@nextui-org/react";
 
-export default function ProofOfPayment() {
+export default function ProofOfTransaction() {
 
     return (
         <main className='backdrop-blur-3xl flex flex-col min-h-screen mx-auto'>
