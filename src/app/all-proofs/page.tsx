@@ -3,9 +3,7 @@
 import React, { useState } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
-import Image from 'next/image';
 import { Card, CardHeader, CardBody, CardFooter, Button } from "@nextui-org/react";
-import { CheckboxGroup, Checkbox } from "@nextui-org/react";
 import ConnectButton from '../../components/ConnectButton/ConnectButton';
 import { EthereumProvider } from '@/contexts/EthereumContext';
 import { NetworkProvider } from '@/contexts/NetworkContext';
@@ -13,34 +11,41 @@ import { ProfileProvider } from '@/contexts/ProfileContext';
 import { Switch } from "@nextui-org/react";
 
 export default function AllProofs() {
-  const [selectedValues, setSelectedValues] = useState<string[]>([]);
-  const [isInvalid, setIsInvalid] = React.useState(true);
-
+  const [selectedValuesCard1, setSelectedValuesCard1] = useState<string[]>([]);
+  const [selectedValuesCard2, setSelectedValuesCard2] = useState<string[]>([]);
   const [account, setAccount] = useState<string | null>(null);
+  const [selectedSwitch, setSelectedSwitch] = useState(null);
 
-  const handleAccountChange = (newAccount: string) => {
+  const handleAccountChange = (newAccount: string | null) => {
     setAccount(newAccount);
     console.log('Account:', newAccount);
   };
 
-  // To have the value of the switch
-  const handleValueChange = (value: string, isSelected: boolean) => {
+  // Handle value change for Card 1
+  const handleValueChangeCard1 = (value: string, isSelected: boolean) => {
     if (isSelected) {
-      setSelectedValues((prevValues) => [...prevValues, value]);
+      setSelectedValuesCard1((prevValues) => [...prevValues, value]);
     } else {
-      setSelectedValues((prevValues) => prevValues.filter((item) => item !== value));
+      setSelectedValuesCard1((prevValues) => prevValues.filter((item) => item !== value));
     }
   };
 
-  const handleGenerateProof = () => {
-    if (selectedValues.includes('web2')) {
+  // Handle value change for Card 2
+  const handleValueChangeCard2 = (value: string, isSelected: boolean) => {
+    if (isSelected) {
+      setSelectedValuesCard2([value]);
+    } else {
+      setSelectedValuesCard2([]);
+    }
+  };
+
+  const handleGenerateProof = (selectedValues: string[]) => {
+    if (selectedValues.includes('web2') && !selectedValues.includes('web3')) {
       console.log('Redirecting to auth URL for web2...');
       window.location.href = authUrl;
-    }
-    if (selectedValues.includes('web3')) {
+    } else if (!selectedValues.includes('web2') && selectedValues.includes('web3')) {
       console.log('Handling web3 option...');
-    }
-    if (selectedValues.length === 2) {
+    } else if (selectedValues.includes('web2') && selectedValues.includes('web3')) {
       console.log('Handling both web2 and web3 options...');
     }
   };
@@ -92,96 +97,76 @@ export default function AllProofs() {
             <div className="rounded-xl grid grid-cols-2 gap-8 px-16 pb-12">
               {/* NEED TO FACTORIZE THE CODE !}
               {/* Grid Proof of Reserve */}
-              <Card isBlurred className="py-4">
+              <Card isBlurred className="py-4 bg-opacity-75 bg-thulian_pink-700">
                 <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                  <p className="text-2xl font-bold pb-2">Proof of Reserve</p>
-                  <small className="text-default-500">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                  <p className="text-3xl font-bold pb-2">Reserve</p>
+                  <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
                 </CardHeader>
                 <CardBody className="overflow-visible py-2 px-10">
-                  <Switch className='mb-3'
-                    isSelected={selectedValues.includes('web2')} onValueChange={(isSelected) => handleValueChange('web2', isSelected)}>
-                    Connect Web2 Data
+                  <Switch className='mb-3' color='warning'
+                    isSelected={selectedValuesCard1.includes('web2')} onValueChange={(isSelected) => handleValueChangeCard1('web2', isSelected)}>
+                    Web2 Data
                   </Switch>
-                  <Switch isSelected={selectedValues.includes('web3')} onValueChange={(isSelected) => handleValueChange('web3', isSelected)}>
-                    Connect Web3 Data
+                  <Switch color='danger' isSelected={selectedValuesCard1.includes('web3')} onValueChange={(isSelected) => handleValueChangeCard1('web3', isSelected)}>
+                    Web3 Data
                   </Switch>
                 </CardBody>
-                <CardFooter className="flex justify-center items-center">
-                  <Button onClick={handleGenerateProof} className='bg-tiffany_blue' variant="shadow" size="md">
+                <CardFooter className="flex flex-col justify-center items-center space-y-2">
+                  <Button onClick={() => handleGenerateProof(selectedValuesCard1)} className='bg-tiffany_blue' size="lg"
+                    isDisabled={!account} // This disables the button when `account` is null or an empty string
+                  >
                     Start
                   </Button>
+                  {!account && <p className="text-small text-default-800">Connect your wallet</p>}
                 </CardFooter>
               </Card>
               {/* Grid payment */}
-              <Card isBlurred className="py-4">
+              <Card isBlurred className="py-4 bg-tiffany_blue bg-opacity-75">
                 <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                  <p className="text-2xl font-bold pb-2">Proof of Payment</p>
-                  <small className="text-default-500">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                  <p className="text-3xl font-bold pb-2">Payment</p>
+                  <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
                 </CardHeader>
                 <CardBody className="overflow-visible py-2 px-10">
                   <Switch className='mb-3'
-                    isSelected={selectedValues.includes('web2')} onValueChange={(isSelected) => handleValueChange('web2', isSelected)}>
-                    Connect Web2 Data
+                    isSelected={selectedValuesCard2.includes('web2')} onValueChange={(isSelected) => handleValueChangeCard2('web2', isSelected)}>
+                    Web2 Data
                   </Switch>
-                  <Switch isSelected={selectedValues.includes('web3')} onValueChange={(isSelected) => handleValueChange('web3', isSelected)}>
-                    Connect Web3 Data
+                  <Switch color='secondary' isSelected={selectedValuesCard2.includes('web3')} onValueChange={(isSelected) => handleValueChangeCard2('web3', isSelected)}>
+                    Web3 Data
                   </Switch>
                 </CardBody>
-                <CardFooter className="flex justify-center items-center">
-                  <Button className='bg-tiffany_blue' variant="shadow" size="md">
+                <CardFooter className="flex flex-col justify-center items-center space-y-2">
+                  <Button onClick={() => handleGenerateProof(selectedValuesCard2)} className='bg-tiffany_blue' size="lg" isDisabled={!account} >
                     Start
                   </Button>
+                  {!account && <p className="text-small text-default-800">Connect your wallet</p>}
                 </CardFooter>
               </Card>
               {/* Grid Proof of Insurance claims */}
-              <Card isBlurred className="py-4">
+              <Card isBlurred className="py-4 bg-thulian_pink-700 bg-opacity-75">
                 <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                  <p className="text-2xl font-bold pb-2">Proof of Insurance claims</p>
-                  <small className="text-default-500">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                  <p className="text-3xl font-bold pb-2">Insurance claims</p>
+                  <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
                 </CardHeader>
                 <CardBody className="overflow-visible py-2 px-10">
-                  <CheckboxGroup
-                    isRequired
-                    description="Select proof of web2 or web3"
-                    isInvalid={isInvalid}
-                    label="Select types"
-                    onValueChange={(value) => {
-                      setIsInvalid(value.length < 1);
-                    }}
-                  >
-                    <Checkbox value="buenos-aires">Connect Bank Account</Checkbox>
-                    <Checkbox value="sydney">Connect Wallet</Checkbox>
-                  </CheckboxGroup>
                 </CardBody>
                 <CardFooter className="flex justify-center items-center">
-                  <Button className='bg-tiffany_blue' variant="shadow" size="md">
-                    Start
+                  <Button className='bg-dark_purple text-white' size="lg">
+                    Comming soon
                   </Button>
                 </CardFooter>
               </Card>
               {/* Grid Funds */}
-              <Card isBlurred className="py-4">
+              <Card isBlurred className="py-4 bg-tiffany_blue bg-opacity-75">
                 <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                  <p className="text-2xl font-bold pb-2">Proof of Funds</p>
-                  <small className="text-default-500">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                  <p className="text-3xl font-bold pb-2">Funds</p>
+                  <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
                 </CardHeader>
                 <CardBody className="overflow-visible py-2 px-10">
-                  <CheckboxGroup
-                    isRequired
-                    description="Select proof of web2 or web3"
-                    isInvalid={isInvalid}
-                    label="Select types"
-                    onValueChange={(value) => {
-                      setIsInvalid(value.length < 1);
-                    }}
-                  >
-                    <Checkbox value="buenos-aires">Connect Bank Account</Checkbox>
-                    <Checkbox value="sydney">Connect Wallet</Checkbox>
-                  </CheckboxGroup>
                 </CardBody>
                 <CardFooter className="flex justify-center items-center">
-                  <Button className='bg-tiffany_blue' variant="shadow" size="md">
-                    Start
+                  <Button className='bg-dark_purple text-white' size="lg">
+                    Comming soon
                   </Button>
                 </CardFooter>
               </Card>
