@@ -1,9 +1,22 @@
-'use client'
+"use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import Image from 'next/image';
+import { Card, CardHeader, CardBody, CardFooter, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Autocomplete, AutocompleteItem, Progress, Accordion, AccordionItem, Table, TableColumn, TableHeader, TableRow, TableBody, TableCell, Avatar, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, CircularProgress, Chip } from "@nextui-org/react";
 import { useSearchParams } from 'next/navigation';
 
-export default function PageProof() {
+export default function Dashboard() {
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const handleOpen = () => {
+		onOpen();
+	}
+	const [amount, setAmount] = useState(0); // From all-proofs (Proof of Reserve) IF EXISTS this mean it's a proof of reserve!
+	const [balance, setBalance] = useState(0);
+	const [successPercentage, setSuccessPercentage] = useState(0);
+
+	// CALL POWENS FOR KEY ECHANGES
 	const searchParams = useSearchParams()
 	const [accessToken, setAccessToken] = useState("");
 
@@ -38,6 +51,7 @@ export default function PageProof() {
 			});
 	}, []);
 
+	// Call Powens for the Balance in the account
 	function getBalance() {
 		const data = {
 			"access_token": accessToken
@@ -53,7 +67,16 @@ export default function PageProof() {
 			})
 				.then(response => response.json())
 				.then(data => {
-					alert("Balance is: " + data.balance);
+					const balance = data.balance;
+					console.log("Balance is: " + balance);
+					const currentAmount = parseFloat(localStorage.getItem('amount') || '0');
+					console.log("Current amount is: " + currentAmount);
+					let successPercent = (balance / currentAmount) * 100;
+					console.log("Success percentage is: " + successPercent);
+					successPercent = Math.min(Math.max(successPercent, 0), 100);
+					console.log("Success percentage is: " + successPercent);
+					setBalance(balance);
+					setSuccessPercentage(isNaN(successPercent) ? 0 : successPercent);
 				})
 				.catch(error => {
 					console.error('Error:', error);
@@ -62,29 +85,311 @@ export default function PageProof() {
 			console.log("Impossible to call balance function: access token is undefined.")
 		}
 	}
+	useEffect(() => {
+		if (accessToken && amount > 0) {
+			getBalance();
+		}
+	}, [accessToken]);
+
+	useEffect(() => { // Dynamicly update amount
+		const storedAmount = parseFloat(localStorage.getItem('amount') || '0');
+		setAmount(storedAmount);
+	}, []);
+
 
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-			{accessToken ? (
-				<>
-					<h1 className="text-4xl font-bold mb-8">Proof of Funds</h1>
-					<div className="max-w-md p-8 bg-white rounded-lg shadow-md">
-						<div className="mb-4">
-							<label htmlFor="hash" className="block text-lg font-semibold mb-2">Hash</label>
-							<p id="hash" className="bg-gray-100 p-2 rounded-md">0xez65f1s3d5f1a3e5f13w5d1f3q51qd3s1da</p>
-						</div>
-						<div className="mb-4">
-							<label htmlFor="pdf" className="block text-lg font-semibold mb-2">PDF</label>
-							<a href="/path/to/pdf-file.pdf" download className="block bg-indigo-500 text-white px-6 py-3 rounded-md text-center hover:bg-indigo-600 text-lg font-semibold">Download</a>
-						</div>
-						<button onClick={getBalance}>Get balance</button>
-					</div>
-				</>
-			) : (
-				<>
-					<p>Loading...</p>
-				</>
-			)}
-		</div>
+		<main className='bg-zinc-900'>
+			<div className='backdrop-blur-3xl flex flex-col min-h-screen mx-auto' style={{ maxWidth: '1500px' }}>
+				<Header />
+				<div className='relative'>
+					<div
+						className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+						style={{
+							background: 'linear-gradient(to bottom, rgba(201, 117, 156, 0.7) 40%, rgba(212, 137, 127, 0.5) 50%)',
+							filter: 'blur(180px)',
+							width: '550px',
+							height: '550px',
+						}}
+					/>
+					<div
+						className="absolute left-1/2 transform translate-x-40 -translate-y-10"
+						style={{
+							background: 'linear-gradient(to bottom, rgba(135,203,208,1) 20%, rgba(0,0,0,1) 90%)',
+							filter: 'blur(80px)',
+							width: '330px',
+							height: '330px',
+						}}
+					/>
+					<div
+						className="absolute transform -translate-x-10 -translate-y-80 "
+						style={{
+							background: 'linear-gradient(to bottom, rgba(83,32,73,1) 30%, rgba(82,55,149,1) 93%)',
+							filter: 'blur(80px)',
+							width: '330px',
+							height: '330px',
+						}}
+					/>
+					{accessToken ? (
+						<>
+							{amount > 0 && (
+								<>
+									{/*Proof of reserve*/}
+									<section className="flex items-center justify-center my-6">
+										<div className="flex flex-col gap-4 w-1/2">
+											<Card className="w-full p-3 flex-col">
+												<CardHeader className="flex flex-col items-center gap-3">
+													<div className="flex flex-row mt-2">
+														<p className="mx-auto text-3xl font-bold pr-2">{successPercentage.toFixed(2)}%</p>
+														<p className="text-3xl font-bold">Filled</p>
+													</div>
+													<div className="w-full">
+														<Progress color={successPercentage === 100 ? "success" : "warning"} aria-label="Loading..." value={successPercentage} />
+													</div>
+												</CardHeader>
+												<CardBody>
+													{/* Name of the proof */}
+													<p className="mx-auto text-xl mb-4">
+														{successPercentage === 100 ? "You fit the requirement!" : "You don't fit the requirement."}
+													</p>
+													<div>
+														<p className="text-2xl font-semibold mb-4">Details:</p>
+														<Accordion selectionMode="multiple">
+															<AccordionItem key="1" aria-label="web2" title="web2">
+																<Table aria-label="Example static collection table" className="m-2 w-9/10">
+																	<TableHeader>
+																		<TableColumn>BANK ACCOUNTS</TableColumn>
+																		<TableColumn>ID NUMBER</TableColumn>
+																		<TableColumn>AMOUNT</TableColumn>
+																	</TableHeader>
+																	<TableBody>
+																		<TableRow key="1">
+																			<TableCell>Checking Account</TableCell>
+																			<TableCell>CEO</TableCell>
+																			<TableCell>Active</TableCell>
+																		</TableRow>
+																		<TableRow key="2">
+																			<TableCell>Savings Account</TableCell>
+																			<TableCell>Technical Lead</TableCell>
+																			<TableCell>Paused</TableCell>
+																		</TableRow>
+																		<TableRow key="3">
+																			<TableCell>Home Savings Account</TableCell>
+																			<TableCell>Senior Developer</TableCell>
+																			<TableCell>Active</TableCell>
+																		</TableRow>
+																		<TableRow key="4">
+																			<TableCell>Brokerage Account</TableCell>
+																			<TableCell>Community Manager</TableCell>
+																			<TableCell>Vacation</TableCell>
+																		</TableRow>
+																	</TableBody>
+																</Table>
+															</AccordionItem>
+															<AccordionItem key="2" aria-label="web3" title="web3">
+																<Table aria-label="Example static collection table" className="m-2 w-9/10">
+																	<TableHeader>
+																		<TableColumn>TOKEN</TableColumn>
+																		<TableColumn>NETWORK</TableColumn>
+																		<TableColumn>AMOUNT</TableColumn>
+																	</TableHeader>
+																	<TableBody>
+																		<TableRow key="1">
+																			<TableCell style={{ display: "flex", alignItems: "center" }}>
+																				<Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" className="w-5 h-5 text-tiny mr-2" />
+																				<p>USDC</p>
+																			</TableCell>
+																			<TableCell>XDC Network</TableCell>
+																			<TableCell>1382.28</TableCell>
+																		</TableRow>
+																		<TableRow key="2">
+																			<TableCell style={{ display: "flex", alignItems: "center" }}>
+																				<Avatar src="https://i.pravatar.cc/150?u=a04258a2462d826712d" className="w-5 h-5 text-tiny mr-2" />
+																				<p>USDT</p>
+																			</TableCell>
+																			<TableCell>Technical Lead</TableCell>
+																			<TableCell>Paused</TableCell>
+																		</TableRow>
+																		<TableRow key="3">
+																			<TableCell>ETH</TableCell>
+																			<TableCell>Senior Developer</TableCell>
+																			<TableCell>Active</TableCell>
+																		</TableRow>
+																		<TableRow key="4">
+																			<TableCell>LUKSO</TableCell>
+																			<TableCell>Community Manager</TableCell>
+																			<TableCell>Vacation</TableCell>
+																		</TableRow>
+																		<TableRow key="5">
+																			<TableCell>LUKSO</TableCell>
+																			<TableCell>Community Manager</TableCell>
+																			<TableCell>Vacation</TableCell>
+																		</TableRow>
+																	</TableBody>
+																</Table>
+															</AccordionItem>
+														</Accordion>
+													</div>
+												</CardBody>
+
+												<CardFooter className="mb-2">
+													<Button className="mx-auto" onPress={() => handleOpen()} disabled>Generate a proof</Button>
+
+													<Modal
+														size="md"
+														isOpen={isOpen}
+														onClose={onClose}
+													>
+														<ModalContent>
+															{(onClose) => (
+																<>
+																	<ModalHeader className="flex flex-col gap-1">Choose a network</ModalHeader>
+																	<ModalBody>
+																		<Button color="default" variant="bordered" onPress={onClose} size="lg" className="flex items-left justify-between p-4">
+																			<div className="flex items-center">
+																				<Avatar isBordered radius="sm" src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />
+																				<div className="ml-3">
+																					<h2 className="mb-1">Lukso Network</h2>
+																					<p className="text-sm">Super user-friendly</p>
+																				</div>
+																			</div>
+																		</Button>
+																		<Button color="default" variant="bordered" onPress={onClose} size="lg" className="flex items-left justify-between p-4">
+																			<div className="flex items-center">
+																				<Avatar isBordered radius="sm" src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />
+																				<div className="ml-3">
+																					<h2 className="mb-1">XDC Network</h2>
+																					<p className="text-sm">Super powerful</p>
+																				</div>
+																			</div>
+																		</Button>
+																	</ModalBody>
+																	<ModalFooter>
+																	</ModalFooter>
+																</>
+															)}
+														</ModalContent>
+													</Modal>
+												</CardFooter>
+											</Card>
+										</div>
+									</section>
+								</>
+							)}
+
+							{/*Proof of Payment*/}
+							<section className="flex items-center justify-center my-6">
+								<div className="flex flex-col gap-4 w-1/2">
+									<Card className="w-full p-3 flex-col">
+										<CardHeader className="flex flex-col items-center gap-3">
+											<div className="flex flex-col mx-auto mt-2">
+												<p className="mx-auto text-3xl font-bold">83%</p>
+											</div>
+											<div className="w-full">
+												<Progress color="danger" aria-label="Loading..." value={70} />
+											</div>
+										</CardHeader>
+
+										<CardBody>
+											<p className="mx-auto">You don&apos;t fit the requirement.</p>
+
+											<Accordion selectionMode="multiple">
+												<AccordionItem key="1" aria-label="Transactions" title="Transactions">
+													<Table aria-label="Example static collection table" className="m-2 w-9/10">
+														<TableHeader>
+															<TableColumn>NAME</TableColumn>
+															<TableColumn>ROLE</TableColumn>
+															<TableColumn>STATUS</TableColumn>
+														</TableHeader>
+														<TableBody>
+															<TableRow key="1">
+																<TableCell>Tony Reichert</TableCell>
+																<TableCell>CEO</TableCell>
+																<TableCell>Active</TableCell>
+															</TableRow>
+															<TableRow key="2">
+																<TableCell>Zoey Lang</TableCell>
+																<TableCell>Technical Lead</TableCell>
+																<TableCell>Paused</TableCell>
+															</TableRow>
+															<TableRow key="3">
+																<TableCell>Jane Fisher</TableCell>
+																<TableCell>Senior Developer</TableCell>
+																<TableCell>Active</TableCell>
+															</TableRow>
+															<TableRow key="4">
+																<TableCell>William Howard</TableCell>
+																<TableCell>Community Manager</TableCell>
+																<TableCell>Vacation</TableCell>
+															</TableRow>
+														</TableBody>
+													</Table>
+												</AccordionItem>
+											</Accordion>
+										</CardBody>
+
+										<CardFooter className="mb-2">
+											<Button className="mx-auto" disabled>Generate a proof</Button>
+										</CardFooter>
+									</Card>
+								</div>
+							</section>
+
+							{/*Credit score*/}
+							<section className="flex items-center justify-center my-6">
+								<div className="flex flex-col gap-4 w-1/2">
+									<Card className="w-full p-3 flex-col">
+										<CardHeader className="flex flex-col items-center gap-3">
+											<Card className="w-[240px] h-[240px] border-none bg-gradient-to-br from-violet-500 to-fuchsia-500">
+												<CardHeader className="justify-center items-center pb-0">
+													<Chip
+														classNames={{
+															base: "border-1 border-white/30",
+															content: "text-white/90 text-small font-semibold",
+														}}
+														variant="bordered"
+													>
+														WEB5 CREDIT SCORE
+													</Chip>
+												</CardHeader>
+												<CardBody className="justify-center items-center pt-0">
+													<CircularProgress
+														classNames={{
+															svg: "w-36 h-36 drop-shadow-md",
+															indicator: "stroke-white",
+															track: "stroke-white/10",
+															value: "text-3xl font-semibold text-white",
+														}}
+														value={70}
+														strokeWidth={4}
+														showValueLabel={true}
+													/>
+												</CardBody>
+											</Card>
+										</CardHeader>
+
+										<CardBody>
+											<p className="mx-auto">You don&apos;t fit the requirement.</p>
+										</CardBody>
+
+										<CardFooter className="mb-2">
+											<Button className="mx-auto" disabled>Generate a proof</Button>
+										</CardFooter>
+									</Card>
+								</div>
+							</section>
+						</>
+					) : (
+						<>
+							<div className="flex justify-center items-center h-screen">
+								<Button color="danger" size='lg' isLoading className="flex justify-center items-center">
+									Loading
+								</Button>
+							</div>
+						</>
+					)}
+				</div>
+
+			</div>
+		</main>
 	);
 }
