@@ -59,12 +59,12 @@ export default function Dashboard() {
 		}
 
 		if (accessToken) {
-			fetch(`http://localhost:8000/api/web2/balance`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(data),
+			fetch(`https://buildhathon-sandbox.biapi.pro/2.0/users/me/accounts`, {
+				method: 'GET',
+        		headers: {
+					'Authorization': 'Bearer ' + accessToken,
+          			'Content-Type': 'application/json'
+        		},
 			})
 				.then(response => response.json())
 				.then(data => {
