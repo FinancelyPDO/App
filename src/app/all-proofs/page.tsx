@@ -14,9 +14,38 @@ import Image from 'next/image';
 import { Select, SelectItem } from "@nextui-org/react";
 import { ListProofs } from "../../components/constants/listProofs";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
+import TransgateConnect from '@zkpass/transgate-js-sdk';
+export default function AllProofs() {
+  const verify = async () => {
+    try {
+    // The appid of the project created in dev center
+    const appid = "ffbdf065-74f2-497a-bb9a-dbac0e8adbec"
+
+    // Create the connector instance
+    const connector = new TransgateConnect(appid)
+
+    // Check if the TransGate extension is installed
+    // If it returns false, please prompt to install it from chrome web store
+    const isAvailable = await connector.isTransgateAvailable()
+
+    if (isAvailable) {
+      // The schema id of the project
+      const schemaId = "97ce3c8b6d4241879b72fab6d84437e4"
 import { getAddressBalance } from '../../components/web3address';
 
-export default function AllProofs() {
+      // Launch the process of verification
+      // This method can be invoked in a loop when dealing with multiple schemas
+      const res = await connector.launch(schemaId)
+      console.log('res', res)
+      // verifiy the res onchain/offchain based on the requirement     
+      
+    } else {
+      console.log('Please install TransGate')
+    }
+  } catch (error) {
+    console.log('transgate error', error)
+  }
+}
   const [selectedValuesCard1, setSelectedValuesCard1] = useState<string[]>([]);
   const [selectedValuesCard2, setSelectedValuesCard2] = useState<string[]>([]);
   const [account, setAccount] = useState<string | null>(null);
