@@ -45,7 +45,7 @@ export default function AllProofs() {
     }
   };
 
-  const authUrl = 'http://localhost:8000/api/web2/connection';
+  const authUrl = 'https://buildhathon-sandbox.biapi.pro/2.0/auth/webview/connect?client_id=61176337&redirect_uri=http://localhost:3000/proof-of-reserve';
 
   return (
     <div className='bg-zinc-900'>
