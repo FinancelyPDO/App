@@ -9,6 +9,8 @@ import { EthereumProvider } from '@/contexts/EthereumContext';
 import { NetworkProvider } from '@/contexts/NetworkContext';
 import { ProfileProvider } from '@/contexts/ProfileContext';
 import { Switch } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
+import Image from 'next/image';
 
 export default function AllProofs() {
   const [selectedValuesCard1, setSelectedValuesCard1] = useState<string[]>([]);
@@ -103,6 +105,10 @@ export default function AllProofs() {
                   <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
                 </CardHeader>
                 <CardBody className="overflow-visible py-2 px-10">
+                  <div key={'bordered'} className="flex flex-col w-full mb-6 gap-4">
+                    <Input type="amount" variant={'bordered'} label="Amount" placeholder="$100.000" />
+                    <Input type="condition" variant={'bordered'} label="Condition" placeholder="greater" className="mb-4" />
+                  </div>
                   <Switch className='mb-3' color='warning'
                     isSelected={selectedValuesCard1.includes('web2')} onValueChange={(isSelected) => handleValueChangeCard1('web2', isSelected)}>
                     Web2 Data
@@ -127,6 +133,19 @@ export default function AllProofs() {
                   <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
                 </CardHeader>
                 <CardBody className="overflow-visible py-2 px-10">
+                  <div key={'bordered'} className="flex flex-col w-full mb-6 gap-4">
+                    <Input type="condition" variant={'bordered'} isClearable placeholder="Type to search..." className="mb-4"
+                      startContent={
+                        <Image
+                          src="/images/icon/search.svg"
+                          alt="Logo"
+                          width={24}
+                          height={24}
+                          className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0"
+                        />
+                      }
+                    />
+                  </div>
                   <Switch className='mb-3'
                     isSelected={selectedValuesCard2.includes('web2')} onValueChange={(isSelected) => handleValueChangeCard2('web2', isSelected)}>
                     Web2 Data
