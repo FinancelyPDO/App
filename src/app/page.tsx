@@ -39,7 +39,10 @@ export default function Home() {
             />
             <div className='relative z-10 mx-auto w-2/3'>
               <h1 className="text-8xl text-lavender font-sans font-bold leading-tight text-center responsive-heading">
-                Building Trust <br /> <span className="text-white text-8xl">With Privacy.</span>
+                Building Trust
+              </h1>
+              <h1 className="text-8xl text-white font-sans font-bold leading-tight text-center responsive-heading">
+                With Privacy.
               </h1>
               <p className="text-2xl mt-20 text-gray-300 mt-16 text-center">
                 Securely verify and validate financial integrity without ever compromising privacy with our Private Data Oracle services.
@@ -48,8 +51,8 @@ export default function Home() {
                 <Link href="/all-proofs" className="text-2xl text-black mr-16 bg-white hover:bg-lavender font-bold font-sans py-4 px-14 rounded-lg transition duration-300">
                   Launch
                 </Link>
-                <Link href="/" className="text-xl text-white font-bold py-4 px-4">
-                  Talk to an expert
+                <Link href="/verifier" className="text-xl text-white font-bold py-4 px-4">
+                  Verify a proof
                 </Link>
               </nav>
             </div>
