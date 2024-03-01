@@ -19,7 +19,11 @@ export default function AllProofs() {
   const [selectedValuesCard1, setSelectedValuesCard1] = useState<string[]>([]);
   const [selectedValuesCard2, setSelectedValuesCard2] = useState<string[]>([]);
   const [account, setAccount] = useState<string | null>(null);
-  const [selectedSwitch, setSelectedSwitch] = useState(null);
+  const [amount, setAmount] = useState('');
+  
+  const handleAmountChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(event.target.value); // Update the amount state with the new input value
+  };
 
   const handleAccountChange = (newAccount: string | null) => {
     setAccount(newAccount);
@@ -45,6 +49,8 @@ export default function AllProofs() {
   };
 
   const handleGenerateProof = (selectedValues: string[]) => {
+    localStorage.setItem('amount', amount); // Save the amount to local storage
+
     if (selectedValues.includes('web2') && !selectedValues.includes('web3')) {
       console.log('Redirecting to auth URL for web2...');
       window.location.href = authUrl;
@@ -122,8 +128,8 @@ export default function AllProofs() {
                 </CardHeader>
                 <CardBody className="overflow-visible py-2 px-10">
                   <div key={'bordered'} className="flex flex-col w-full mb-6 gap-4">
-                    <Input type="amount" variant={'bordered'} label="Amount" placeholder="$100.000" />
-                    <Input type="condition" variant={'bordered'} label="Condition" placeholder="greater" className="mb-4" />
+                    <Input type="number" variant={'bordered'} label="Amount" placeholder="$100.000" value={amount} onChange={handleAmountChange}/>
+                    <Input type="text" variant={'bordered'} label="Condition" placeholder="greater" className="mb-4" />
                   </div>
                   <Switch className='mb-3' color='warning'
                     isSelected={selectedValuesCard1.includes('web2')} onValueChange={(isSelected) => handleValueChangeCard1('web2', isSelected)}>
@@ -139,7 +145,7 @@ export default function AllProofs() {
                   >
                     Start
                   </Button>
-                  {!account && <p className="text-small text-default-800">Connect your wallet</p>}
+                  {!account && <p className="text-small text-default-800">You must connect your wallet</p>}
                 </CardFooter>
               </Card>
               {/* Grid Transactions */}
@@ -161,63 +167,63 @@ export default function AllProofs() {
                           width={24}
                           height={24}
                           className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0"
-                        /> } 
+                        />}
                     >
                       {ListProofs.map((listProof) => (
                         <AutocompleteItem key={listProof.value} value={listProof.value}>
-                            { listProof.label }
+                          {listProof.label}
                         </AutocompleteItem>
                       ))}
-                  </Autocomplete>
-                </div>
-                <Switch className='mb-3'
-                  isSelected={selectedValuesCard2.includes('web2')} onValueChange={(isSelected) => handleValueChangeCard2('web2', isSelected)}>
-                  Web2 Data
-                </Switch>
-                <Switch color='secondary' isSelected={selectedValuesCard2.includes('web3')} onValueChange={(isSelected) => handleValueChangeCard2('web3', isSelected)}>
-                  Web3 Data
-                </Switch>
-              </CardBody>
-              <CardFooter className="flex flex-col justify-center items-center space-y-2">
-                <Button onClick={() => handleGenerateProof(selectedValuesCard2)} className='bg-tiffany_blue' size="lg" isDisabled={!account} >
-                  Start
-                </Button>
-                {!account && <p className="text-small text-default-800">Connect your wallet</p>}
-              </CardFooter>
-            </Card>
-            {/* Grid Proof of Insurance claims */}
-            <Card isBlurred className="py-4 bg-thulian_pink-700 bg-opacity-75">
-              <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                <p className="text-3xl font-bold pb-2">Insurance claims</p>
-                <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
-              </CardHeader>
-              <CardBody className="overflow-visible py-2 px-10">
-              </CardBody>
-              <CardFooter className="flex justify-center items-center">
-                <Button className='bg-dark_purple text-white' size="lg">
-                  Comming soon
-                </Button>
-              </CardFooter>
-            </Card>
-            {/* Grid Funds */}
-            <Card isBlurred className="py-4 bg-tiffany_blue bg-opacity-75">
-              <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                <p className="text-3xl font-bold pb-2">Funds</p>
-                <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
-              </CardHeader>
-              <CardBody className="overflow-visible py-2 px-10">
-              </CardBody>
-              <CardFooter className="flex justify-center items-center">
-                <Button className='bg-dark_purple text-white' size="lg">
-                  Comming soon
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
-        </section>
-      </main >
-      <Footer />
-    </div >
+                    </Autocomplete>
+                  </div>
+                  <Switch className='mb-3'
+                    isSelected={selectedValuesCard2.includes('web2')} onValueChange={(isSelected) => handleValueChangeCard2('web2', isSelected)}>
+                    Web2 Data
+                  </Switch>
+                  <Switch color='secondary' isSelected={selectedValuesCard2.includes('web3')} onValueChange={(isSelected) => handleValueChangeCard2('web3', isSelected)}>
+                    Web3 Data
+                  </Switch>
+                </CardBody>
+                <CardFooter className="flex flex-col justify-center items-center space-y-2">
+                  <Button onClick={() => handleGenerateProof(selectedValuesCard2)} className='bg-tiffany_blue' size="lg" isDisabled={!account} >
+                    Start
+                  </Button>
+                  {!account && <p className="text-small text-default-800">Connect your wallet</p>}
+                </CardFooter>
+              </Card>
+              {/* Grid Proof of Insurance claims */}
+              <Card isBlurred className="py-4 bg-thulian_pink-700 bg-opacity-75">
+                <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
+                  <p className="text-3xl font-bold pb-2">Insurance claims</p>
+                  <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                </CardHeader>
+                <CardBody className="overflow-visible py-2 px-10">
+                </CardBody>
+                <CardFooter className="flex justify-center items-center">
+                  <Button className='bg-dark_purple text-white' size="lg">
+                    Comming soon
+                  </Button>
+                </CardFooter>
+              </Card>
+              {/* Grid Funds */}
+              <Card isBlurred className="py-4 bg-tiffany_blue bg-opacity-75">
+                <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
+                  <p className="text-3xl font-bold pb-2">Funds</p>
+                  <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                </CardHeader>
+                <CardBody className="overflow-visible py-2 px-10">
+                </CardBody>
+                <CardFooter className="flex justify-center items-center">
+                  <Button className='bg-dark_purple text-white' size="lg">
+                    Comming soon
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          </section>
+        </main >
+        <Footer />
+      </div >
     </div >
   );
 }
