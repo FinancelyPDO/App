@@ -87,7 +87,7 @@ export default function Dashboard() {
 		}
 	}
 	useEffect(() => {
-		if (accessToken && amount > 0) {
+		if (accessToken) {
 			getBalance();
 		}
 	}, [accessToken]);
@@ -100,6 +100,7 @@ export default function Dashboard() {
 	useEffect(() => { // Dynamicly update amount
 		const web3balance = parseFloat(localStorage.getItem('Web3Balance') || '0');
 		setWeb3Balance(web3balance);
+		console.log("Web3 balance is: " + web3balance);
 	}, []);
 
 	return (

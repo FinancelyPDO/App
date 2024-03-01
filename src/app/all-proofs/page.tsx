@@ -15,6 +15,7 @@ import { Select, SelectItem } from "@nextui-org/react";
 import { ListProofs } from "../../components/constants/listProofs";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import TransgateConnect from '@zkpass/transgate-js-sdk';
+import { getAddressBalance } from '../../components/web3address';
 export default function AllProofs() {
   const verify = async () => {
     try {
@@ -31,7 +32,6 @@ export default function AllProofs() {
     if (isAvailable) {
       // The schema id of the project
       const schemaId = "97ce3c8b6d4241879b72fab6d84437e4"
-import { getAddressBalance } from '../../components/web3address';
 
       // Launch the process of verification
       // This method can be invoked in a loop when dealing with multiple schemas
@@ -83,13 +83,16 @@ import { getAddressBalance } from '../../components/web3address';
 
     if (selectedValues.includes('web2') && !selectedValues.includes('web3')) {
       console.log('Redirecting to auth URL for web2...');
-      window.location.href = authUrl;
+      verify();
     } else if (!selectedValues.includes('web2') && selectedValues.includes('web3')) {
       console.log('Handling web3 option...');
       const balanceWeb3 = await getAddressBalance(account);
       localStorage.setItem('Web3Balance', balanceWeb3);
       window.location.href = '/proof-of-reserve';  
     } else if (selectedValues.includes('web2') && selectedValues.includes('web3')) {
+      const balanceWeb3 = await getAddressBalance(account);
+      localStorage.setItem('Web3Balance', balanceWeb3);
+      verify();
       console.log('Handling both web2 and web3 options...');
     }
   };
