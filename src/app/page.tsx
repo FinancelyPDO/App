@@ -45,7 +45,7 @@ export default function Home() {
                 With Privacy.
               </h1>
               <p className="text-2xl mt-20 text-gray-300 mt-16 text-center">
-                Securely verify and validate financial integrity without ever compromising privacy with our Private Data Oracle services.
+              Securely verify and validate financial integrity while safeguarding privacy through our Private Data services.
               </p>
               <nav className="flex justify-center mt-20 p-8">
                 <Link href="/all-proofs" className="text-2xl text-black mr-16 bg-white hover:bg-lavender font-bold font-sans py-4 px-14 rounded-lg transition duration-300">
@@ -84,9 +84,9 @@ export default function Home() {
                 /> */}
               </div>
               <div className="w-full md:w-1/2 mt-4 md:mt-0 px-20">
-                <h2 className="text-6xl font-bold font-tiempos-headline text-white mb-6">Proof of Integrity, Delivered.</h2>
+                <h2 className="text-6xl font-bold font-tiempos-headline text-white mb-6">Proof of integrity.</h2>
                 <p className="text-gray-500 mb-8 text-xl">
-                  Verify asset holdings in real-time, ensuring transparency and trust in financial declarations.
+                Proof of financial integrity
                 </p>
                 <Link href="/proof-of-reserve"
                   className="inline-block bg-white ml-5 text-black hover:bg-old_rose py-3 px-10 rounded-lg transition duration-300">Dive In
@@ -98,9 +98,9 @@ export default function Home() {
           <section className="w-full mt-20">
             <div className="flex flex-wrap items-center justify-around mx-auto mt-32 px-4">
               <div className="w-full md:w-1/2 mt-4 md:mt-0 px-20 ">
-                <h2 className="text-6xl font-bold font-tiempos-headline text-white mb-6">Trust Index Score.</h2>
+                <h2 className="text-6xl font-bold font-tiempos-headline text-white mb-6">Credit Score</h2>
                 <p className="text-gray-500 mb-8 text-xl">
-                  Leverage our proprietary Trust Index to quantify and demonstrate your credibility to partners and customers.
+                Leverage our Credit Score Index to quantify and demonstrate your credibility to partners and customers.
                 </p>
                 <Link href="/"
                   className="inline-block bg-white ml-5 text-black hover:bg-old_rose py-3 px-10 rounded-lg transition duration-300">Dive In
@@ -146,9 +146,9 @@ export default function Home() {
                 />
               </div>
               <div className="w-full md:w-1/2 mt-4 md:mt-0 px-20">
-                <h2 className="text-6xl font-bold font-tiempos-headline text-white mb-6">Swap Solutions, Tailored for Foundations.</h2>
+                <h2 className="text-6xl font-bold font-tiempos-headline text-white mb-6">Proof of Payment Fidelity, Customized for Trust Enhancement.</h2>
                 <p className="text-gray-500 mb-8 text-xl">
-                  Provide your supporters with a secure, transparent means to contribute to your cause or project, bolstering trust through clear financial transactions.
+                  Offer your stakeholders a reliable, transparent method to verify consistent financial engagements, reinforcing confidence with undeniable financial integrity.
                 </p>
                 <Link href="/"
                   className="inline-block bg-white ml-5 text-black hover:bg-old_rose py-3 px-10 rounded-lg transition duration-300">Dive In
