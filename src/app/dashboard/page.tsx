@@ -225,29 +225,24 @@ export default function Dashboard() {
 																<Table aria-label="Example static collection table" className="m-2 w-9/10">
 																	<TableHeader>
 																		<TableColumn>BANK ACCOUNTS</TableColumn>
-																		<TableColumn>ID NUMBER</TableColumn>
 																		<TableColumn>AMOUNT</TableColumn>
 																	</TableHeader>
 																	<TableBody>
 																		<TableRow key="1">
 																			<TableCell>Checking Account</TableCell>
-																			<TableCell>CEO</TableCell>
-																			<TableCell>Active</TableCell>
+																			<TableCell>$5,000</TableCell>
 																		</TableRow>
 																		<TableRow key="2">
 																			<TableCell>Savings Account</TableCell>
-																			<TableCell>Technical Lead</TableCell>
-																			<TableCell>Paused</TableCell>
+																			<TableCell>$3,200</TableCell>
 																		</TableRow>
 																		<TableRow key="3">
 																			<TableCell>Home Savings Account</TableCell>
-																			<TableCell>Senior Developer</TableCell>
-																			<TableCell>Active</TableCell>
+																			<TableCell>$4,150</TableCell>
 																		</TableRow>
 																		<TableRow key="4">
 																			<TableCell>Brokerage Account</TableCell>
-																			<TableCell>Community Manager</TableCell>
-																			<TableCell>Vacation</TableCell>
+																			<TableCell>$2,500</TableCell>
 																		</TableRow>
 																	</TableBody>
 																</Table>
@@ -262,7 +257,7 @@ export default function Dashboard() {
 																	<TableBody>
 																		<TableRow key="1">
 																			<TableCell style={{ display: "flex", alignItems: "center" }}>
-																				<Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" className="w-5 h-5 text-tiny mr-2" />
+																				<Avatar src="https://assets.coingecko.com/coins/images/325/thumb/Tether.png?1696501661" className="w-5 h-5 text-tiny mr-2" />
 																				<p>USDC</p>
 																			</TableCell>
 																			<TableCell>XDC Network</TableCell>
@@ -270,26 +265,19 @@ export default function Dashboard() {
 																		</TableRow>
 																		<TableRow key="2">
 																			<TableCell style={{ display: "flex", alignItems: "center" }}>
-																				<Avatar src="https://i.pravatar.cc/150?u=a04258a2462d826712d" className="w-5 h-5 text-tiny mr-2" />
+																				<Avatar src="https://assets.coingecko.com/coins/images/325/thumb/Tether.png?1696501661" className="w-5 h-5 text-tiny mr-2" />
 																				<p>USDT</p>
 																			</TableCell>
-																			<TableCell>Technical Lead</TableCell>
-																			<TableCell>Paused</TableCell>
+																			<TableCell>Ethereum</TableCell>
+																			<TableCell>5230</TableCell>
 																		</TableRow>
 																		<TableRow key="3">
-																			<TableCell>ETH</TableCell>
-																			<TableCell>Senior Developer</TableCell>
-																			<TableCell>Active</TableCell>
-																		</TableRow>
-																		<TableRow key="4">
-																			<TableCell>LUKSO</TableCell>
-																			<TableCell>Community Manager</TableCell>
-																			<TableCell>Vacation</TableCell>
-																		</TableRow>
-																		<TableRow key="5">
-																			<TableCell>LUKSO</TableCell>
-																			<TableCell>Community Manager</TableCell>
-																			<TableCell>Vacation</TableCell>
+																			<TableCell style={{ display: "flex", alignItems: "center" }}>
+																				<Avatar src="/images/Token_Logo/ethereum-eth-logo.svg" className="w-5 h-5 text-tiny mr-2" />
+																				<p>ETH</p>
+																			</TableCell>
+																			<TableCell>Lukso</TableCell>
+																			<TableCell>1.7</TableCell>
 																		</TableRow>
 																	</TableBody>
 																</Table>
@@ -300,15 +288,6 @@ export default function Dashboard() {
 
 												<CardFooter className="mb-2">
 													<Button className="mx-auto" size='lg' onPress={() => handleOpen()} isDisabled={successPercentage < 100}>Generate a proof</Button>
-													{/* <div className="flex-1 flex justify-center items-center z-10">
-														<EthereumProvider>
-															<NetworkProvider>
-																<ProfileProvider>
-																	<ConnectButton onAccountChange={handleAccountChange} />
-																</ProfileProvider>
-															</NetworkProvider>
-														</EthereumProvider>
-													</div> */}
 													<Modal
 														size="md"
 														isOpen={isOpen}
@@ -349,7 +328,6 @@ export default function Dashboard() {
 																				</div>
 																			</div>
 																		</Button>
-
 																	</ModalBody>
 																	<ModalFooter>
 																	</ModalFooter>
