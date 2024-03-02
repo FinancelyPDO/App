@@ -23,14 +23,46 @@ The US is exploring Open Banking, with the Consumer Financial Protection Bureau 
 This project combines Open Banking with blockchain technology, enabling users to provide verifiable financial proofs without revealing sensitive information. Through an API, users can link their bank data to a blockchain-based zk-proof system, which then issues a Soulbound Token (SBT) as evidence of their financial status, like proof of reserve, proof of regular payment & fidelity, or creditworthiness.
 
 ## Table of Contents 📑
-- [Web2 Use Cases](#web2-use-cases-)
-- [Web3 Use Cases](#web3-use-cases-)
-- [Problem Statement](#problem-statement-)
+- [Problem Statement](#problem-statement-%EF%B8%8F)
 - [Solution](#solution-)
 - [Features](#features-)
+- [Web2 Use Cases](#web2-use-cases)
+- [Web3 Use Cases](#web3-use-cases)
 - [Advantages](#advantages-)
-- [Product](#product-)
-- [Getting Started](#getting-started-) 
+- [Product](#product-%EF%B8%8F)
+- [Getting Started](#getting-started) 
+
+
+
+
+## Problem Statement ⚠️
+
+Provehance addresses the critical challenge of proving financial credibility without compromising privacy in both traditional finance (Web2) and blockchain (Web3) contexts. Traditionally, verifying financial health requires sharing sensitive data, risking privacy breaches and fraud. In the Web3 space, the need for anonymity clashes with demands for financial transparency. 
+
+## Solution 📜
+
+Provehance leverages Open Banking and blockchain technology, allowing users to generate verifiable, privacy-preserving proofs of financial status, such as reserves, transactions, or creditworthiness. This innovation offers a secure, transparent solution that maintains user privacy while providing reliable financial verification, bridging the gap between privacy concerns and the necessity for financial transparency in digital and decentralized environments.
+
+
+
+## Features ✨
+
+Provehance is designed to offer a comprehensive suite of proof types, each tailored to specific financial transparency and privacy requirements. Here are the distinct types of proofs that serve as the core features of the project:
+
+- **Proof of Reserve**: Users can verify their possession of specified funds in their account, maintaining privacy while affirming their financial solidity.
+
+- **Proof of Regular Payment & Fidelity**: This feature validates the consistency of financial transactions, such as periodic payments or subscriptions, showcasing reliability without exposing detailed transaction data.
+
+- **Creditworthiness Proof**: A privacy-first approach to illustrating a user's credit health, drawing on their banking history but keeping sensitive information confidential.
+
+- **Transaction Authenticity Proof**: Users can prove the genuineness of specific transactions, enabling them to confirm past payments or transfers without disclosing their entire financial history.
+
+- **Income Verification Proof**: This allows individuals to substantiate their income for applications or agreements, sidestepping the need to expose extensive financial details or personal data.
+
+- **Asset Backing Proof**: Facilitates the tokenization of real-world assets, offering credible proof that the user owns assets corresponding to digital tokens, securely linking physical and digital assets.
+
+These features collectively enable users to demonstrate their financial standing through secure, transparent, and privacy-preserving means, harnessing the power of blockchain technology for reliable, tamper-proof verification.
+
 
 ## Web2 Use Cases
 
@@ -69,37 +101,6 @@ This project combines Open Banking with blockchain technology, enabling users to
 These scenarios showcase the project's capability to facilitate a wide range of financial proofs, ensuring privacy and security while fostering trust and efficiency in both traditional and blockchain-centric environments.
 
 
-## Problem Statement ⚠️
-
-Provehance addresses the critical challenge of proving financial credibility without compromising privacy in both traditional finance (Web2) and blockchain (Web3) contexts. Traditionally, verifying financial health requires sharing sensitive data, risking privacy breaches and fraud. In the Web3 space, the need for anonymity clashes with demands for financial transparency. 
-
-## Solution 📜
-
-Provehance leverages Open Banking and blockchain technology, allowing users to generate verifiable, privacy-preserving proofs of financial status, such as reserves, transactions, or creditworthiness. This innovation offers a secure, transparent solution that maintains user privacy while providing reliable financial verification, bridging the gap between privacy concerns and the necessity for financial transparency in digital and decentralized environments.
-
-
-
-## Features ✨
-
-Provehance is designed to offer a comprehensive suite of proof types, each tailored to specific financial transparency and privacy requirements. Here are the distinct types of proofs that serve as the core features of the project:
-
-- **Proof of Reserve**: Users can verify their possession of specified funds in their account, maintaining privacy while affirming their financial solidity.
-
-- **Proof of Regular Payment & Fidelity**: This feature validates the consistency of financial transactions, such as periodic payments or subscriptions, showcasing reliability without exposing detailed transaction data.
-
-- **Creditworthiness Proof**: A privacy-first approach to illustrating a user's credit health, drawing on their banking history but keeping sensitive information confidential.
-
-- **Transaction Authenticity Proof**: Users can prove the genuineness of specific transactions, enabling them to confirm past payments or transfers without disclosing their entire financial history.
-
-- **Income Verification Proof**: This allows individuals to substantiate their income for applications or agreements, sidestepping the need to expose extensive financial details or personal data.
-
-- **Asset Backing Proof**: Facilitates the tokenization of real-world assets, offering credible proof that the user owns assets corresponding to digital tokens, securely linking physical and digital assets.
-
-These features collectively enable users to demonstrate their financial standing through secure, transparent, and privacy-preserving means, harnessing the power of blockchain technology for reliable, tamper-proof verification.
-
-
-
-
 ## Advantages 💎
 
 - **Enhanced Privacy & Security**: Provehance safeguards users' financial data with a blockchain-based system that provides verifiable, non-disclosive financial proofs, ensuring utmost confidentiality and security.
@@ -119,21 +120,20 @@ These features collectively enable users to demonstrate their financial standing
 
 #### Proof of Reserve Diagram
 
-![Proof of reserve diagram](https://github.com/Provehance/app/diagrams/proofOfReserveDiagram.png)
+![Proof of Reserve Diagram](https://github.com/Provehance/app/blob/63d3f98c3a24faf94b7b3841d5d56b36d5f3151e/diagrams/creditScoreDiagram.png)
 
 #### Proof of Transaction Diagram
 
-![Proof of transaction diagram](https://github.com/Provehance/app/diagrams/proofOfTransactionDiagram.png)
+![Proof of transaction diagram](https://github.com/Provehance/app/blob/63d3f98c3a24faf94b7b3841d5d56b36d5f3151e/diagrams/proofOfReserveDiagram.png)
 
 #### Credit Score Diagram
 
-![Credit score diagram](https://github.com/Provehance/app/diagrams/creditScoreDiagram.png)
+![Credit score diagram](https://github.com/Provehance/app/blob/63d3f98c3a24faf94b7b3841d5d56b36d5f3151e/diagrams/proofOfTransactionDiagram.png)
 
 ### WebSite:
 
 a changer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-- [**Site Repository**](https://) on GitHub for source code and more.
 - [**Live Site**](https://): Check out the live version of . 
 
 ### Code Reference:
