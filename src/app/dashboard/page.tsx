@@ -16,6 +16,7 @@ export default function Dashboard() {
 	const [balance, setBalance] = useState(0);
 	const [successPercentage, setSuccessPercentage] = useState(0);
 	const [creditScore, setCreditScore] = useState(0);
+	const [proofTransactionCompanyData, setProofTransactionCompanyData] = useState(null);
 
 	// CALL POWENS FOR KEY ECHANGES
 	const searchParams = useSearchParams()
@@ -145,6 +146,15 @@ export default function Dashboard() {
 		const web3balance = parseFloat(localStorage.getItem('Web3Balance') || '0');
 		setWeb3Balance(web3balance);
 		console.log("Web3 balance is: " + web3balance);
+	}, []);
+
+	useEffect(() => { // Get the company data selected by the user
+		const cachedData = localStorage.getItem('selectedCompany_ProofTransactions');
+		if (cachedData) {
+			const data = JSON.parse(cachedData);
+			console.log('Données de l\'entreprise récupérées :', data);
+			setProofTransactionCompanyData(data);
+		}
 	}, []);
 
 	return (
@@ -298,61 +308,52 @@ export default function Dashboard() {
 							)}
 
 							{/*Proof of Payment*/}
-							<section className="flex items-center justify-center my-6">
-								<div className="flex flex-col gap-4 w-1/2">
-									<Card className="w-full p-3 flex-col">
-										<CardHeader className="flex flex-col items-center gap-3">
-											<div className="flex flex-col mx-auto mt-2">
-												<p className="mx-auto text-3xl font-bold">83%</p>
-											</div>
-											<div className="w-full">
-												<Progress color="danger" aria-label="Loading..." value={70} />
-											</div>
-										</CardHeader>
+							<div>
+								{proofTransactionCompanyData && (
+									<section className="flex items-center justify-center my-6">
+										<div className="flex flex-col gap-4 w-1/2">
+											<Card className="w-full p-3 flex-col">
+												<CardHeader className="flex flex-col items-center gap-3">
+													<div className="flex flex-col mx-auto mt-2">
+														<p className="mx-auto text-3xl font-bold">83%</p>
+													</div>
+													<div className="w-full">
+														<Progress color="danger" aria-label="Loading..." value={70} />
+													</div>
+												</CardHeader>
+												<CardBody>
+													<p className="mx-auto">You don&apos;t fit the requirement.</p>
+													<p className="text-xl font-semibold mb-4">Details:</p>
+													<Accordion selectionMode="multiple">
+														<AccordionItem key="1" aria-label="Transactions" title="Transactions">
+															<Table aria-label="Example static collection table" className="m-2 w-9/10">
+																<TableHeader>
+																	<TableColumn>NAME</TableColumn>
+																	<TableColumn>AMOUNT</TableColumn>
+																</TableHeader>
+																<TableBody>
+																	<TableRow key="1">
+																		<TableCell>Lacoste</TableCell>
+																		<TableCell>$130</TableCell>
+																	</TableRow>
+																	<TableRow key="2">
+																		<TableCell>Lacoste</TableCell>
+																		<TableCell>$70</TableCell>
+																	</TableRow>
+																</TableBody>
+															</Table>
+														</AccordionItem>
+													</Accordion>
+												</CardBody>
+												<CardFooter className="mb-2">
+													<Button className="mx-auto" disabled size='lg'>Generate a proof</Button>
+												</CardFooter>
+											</Card>
+										</div>
+									</section>
+								)}
+							</div>
 
-										<CardBody>
-											<p className="mx-auto">You don&apos;t fit the requirement.</p>
-											<p className="text-xl font-semibold mb-4">Details:</p>
-											<Accordion selectionMode="multiple">
-												<AccordionItem key="1" aria-label="Transactions" title="Transactions">
-													<Table aria-label="Example static collection table" className="m-2 w-9/10">
-														<TableHeader>
-															<TableColumn>NAME</TableColumn>
-															<TableColumn>ROLE</TableColumn>
-															<TableColumn>STATUS</TableColumn>
-														</TableHeader>
-														<TableBody>
-															<TableRow key="1">
-																<TableCell>Tony Reichert</TableCell>
-																<TableCell>CEO</TableCell>
-																<TableCell>Active</TableCell>
-															</TableRow>
-															<TableRow key="2">
-																<TableCell>Zoey Lang</TableCell>
-																<TableCell>Technical Lead</TableCell>
-																<TableCell>Paused</TableCell>
-															</TableRow>
-															<TableRow key="3">
-																<TableCell>Jane Fisher</TableCell>
-																<TableCell>Senior Developer</TableCell>
-																<TableCell>Active</TableCell>
-															</TableRow>
-															<TableRow key="4">
-																<TableCell>William Howard</TableCell>
-																<TableCell>Community Manager</TableCell>
-																<TableCell>Vacation</TableCell>
-															</TableRow>
-														</TableBody>
-													</Table>
-												</AccordionItem>
-											</Accordion>
-										</CardBody>
-										<CardFooter className="mb-2">
-											<Button className="mx-auto" disabled size='lg'>Generate a proof</Button>
-										</CardFooter>
-									</Card>
-								</div>
-							</section>
 
 							{/*Credit score*/}
 							<section className="flex items-center justify-center my-6">
