@@ -130,6 +130,37 @@ export default function Dashboard() {
 			console.log("Impossible to call balance function: access token is undefined.")
 		}
 	}
+
+	function getTransaction() {
+		const data = {
+			"access_token": accessToken
+		}
+
+		if (accessToken) {
+			fetch(`http://localhost:8000/web2/transaction`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ accessToken }),
+			})
+				.then(response => {
+					if (!response.ok) {
+						throw new Error(`Error: ${response.statusText}`);
+					}
+					return response.json();
+				})
+				.then(data => {
+					const creditScore = (data *100 / 10) * 100;
+					setCreditScore(creditScore);
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		} else {
+			console.log("Impossible to call balance function: access token is undefined.")
+		}
+	}
 	useEffect(() => {
 		if (accessToken) {
 			getBalance();
@@ -354,18 +385,17 @@ export default function Dashboard() {
 								)}
 							</div>
 
-
 							{/*Credit score*/}
 							<section className="flex items-center justify-center my-6">
 								<div className="flex flex-col gap-4 w-1/2">
 									<Card className="w-full p-3 flex-col">
 										<CardHeader className="flex flex-col items-center gap-3">
-											<Card className="w-[240px] h-[240px] border-none bg-gradient-to-br from-violet-500 to-fuchsia-500">
-												<CardHeader className="justify-center items-center pb-0">
+											<Card className="w-[240px] h-[240px] border-none ">
+											<CardHeader className="justify-center items-center pb-0">
 													<Chip
 														classNames={{
 															base: "border-1 border-white/30",
-															content: "text-white/90 text-small font-semibold",
+															content: "text-black/90 text-small font-semibold",
 														}}
 														variant="bordered"
 													>
@@ -377,8 +407,8 @@ export default function Dashboard() {
 														classNames={{
 															svg: "w-36 h-36 drop-shadow-md",
 															indicator: "stroke-white",
-															track: "stroke-white/10",
-															value: "text-3xl font-semibold text-white",
+															track: "stroke-black/10",
+															value: "text-3xl font-semibold text-black",
 														}}
 														value={creditScore}
 														strokeWidth={4}
@@ -387,7 +417,6 @@ export default function Dashboard() {
 												</CardBody>
 											</Card>
 										</CardHeader>
-
 										<CardBody>
 											<p className="mx-auto">You don&apos;t fit the requirement.</p>
 										</CardBody>
