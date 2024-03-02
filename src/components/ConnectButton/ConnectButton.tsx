@@ -69,7 +69,7 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onAccountChange }) => {
         setModalContent('Error: The address is fraudulent.');
         handleDisconnect();
       } else {
-        setModalContent('The address is not fraudulent.');
+        setModalContent('The address is safe!');
       }
       setIsModalOpen(true); // Open the modal with the content set above.
     }
@@ -100,7 +100,7 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({ onAccountChange }) => {
               <p>{modalContent}</p>
             </ModalBody>
             <ModalFooter className="flex justify-between items-center">
-              <p>Power by <span className='font-bold'>Harpie</span> </p>
+              <p>Powered by <span className='font-bold'>Harpie</span> </p>
               <Button color="danger" variant="light" onPress={closeModal}>
                 Close
               </Button>
