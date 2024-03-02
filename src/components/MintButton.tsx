@@ -55,6 +55,10 @@ const MintButton: React.FC<MintButtonProps> = ({ selectedBlockchain, balance, am
 			console.error(error);
 		}
 	}
+	const linkIdentity = () => {
+		window.location.href = 'https://issuer-ui.polygonid.me/credentials/scan-link/92ec979b-905f-4e5b-ab1e-b11ce8b75bef';
+	  };
+
 	return (
 		<div>
 			<Button color="default" variant="bordered" onClick={() => handleButtonClick(selectedBlockchain)} size="lg" className="flex items-left justify-between p-4">
@@ -84,14 +88,14 @@ const MintButton: React.FC<MintButtonProps> = ({ selectedBlockchain, balance, am
 								height={36}
 								className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0 mr-2"
 							/>
-							<p className="text-xl font-bold break-words">Success!</p>
+							<p className="text-xl font-bold break-words">Almost their!</p>
 						</ModalHeader>
 						<div className="p-5">
 							<p className="break-words">This hash is your unique proof. Please keep it safe as it represents your ability to prove your actions.</p>
 							<p>The last step is to link this hash with your identity for additional security.</p>
 						</div>
 						<ModalFooter className="flex justify-between items-center p-5 border-t">
-							<Button className='bg-tiffany_blue' variant="solid" radius='lg'> {/**onPress={linkIdentity} */}
+							<Button className='bg-tiffany_blue' variant="solid" onPress={linkIdentity} radius='lg'>
 								Polygon Id
 							</Button>
 							<Button color="danger" variant="light" onPress={closeModal}>
