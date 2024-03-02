@@ -22,7 +22,7 @@ const fetchCryptoPrice = (symbol: string): Promise<number> => {
     });
   };
 export function getAddressBalance(ethAddress: string | null): Promise<any> {
-    return fetch(`http://localhost:8000/api/web3/recoverAddressInfo`, {
+    return fetch(`http://localhost:8000/web3/recoverAddressInfo`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export function getAddressBalance(ethAddress: string | null): Promise<any> {
                 console.error(`Error when getting the price ${crypto.symbol}:`, error);
             }
         }
-        return fetch(`http://localhost:8000/api/web3/calculateWeb3Balance`, {
+        return fetch(`http://localhost:8000/web3/calculateWeb3Balance`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
