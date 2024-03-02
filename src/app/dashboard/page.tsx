@@ -37,28 +37,28 @@ export default function Dashboard() {
 				client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
 				client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
 			};
-		console.log('Code:', code);
-		console.log('Client ID:', data.client_id);
-		console.log('Secret:', data.client_secret);
+			console.log('Code:', code);
+			console.log('Client ID:', data.client_id);
+			console.log('Secret:', data.client_secret);
 
-		fetch(`https://${process.env.NEXT_PUBLIC_DOMAINE}-sandbox.biapi.pro/2.0/auth/token/access`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		})
-			.then((response: any) => response.json())
-			.then((data: any) => {
-				console.log(data);
-				console.log('Access Token:', data.access_token);
-				localStorage.setItem('accessToken', data.access_token);
-				// Update the state with the new access token
-				setAccessToken(data.access_token);
+			fetch(`https://${process.env.NEXT_PUBLIC_DOMAINE}-sandbox.biapi.pro/2.0/auth/token/access`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
 			})
-			.catch((error: any) => {
-				console.error('Error:', error);
-			});
+				.then((response: any) => response.json())
+				.then((data: any) => {
+					console.log(data);
+					console.log('Access Token:', data.access_token);
+					localStorage.setItem('accessToken', data.access_token);
+					// Update the state with the new access token
+					setAccessToken(data.access_token);
+				})
+				.catch((error: any) => {
+					console.error('Error:', error);
+				});
 		}
 	}, []);
 
@@ -281,9 +281,9 @@ export default function Dashboard() {
 															{(onClose) => (
 																<>
 																	<ModalHeader className="flex flex-col gap-1">Choose a network</ModalHeader>
-																	<ModalBody>
+																	<ModalBody className='flex flex-col items-center justify-center w-full'>
 																		<MintButton selectedBlockchain={'Lukso'} balance={balance} amount={amount} image="/images/Lukso-logo.jpeg" title="Lukso Network" subtitle="Super user-friendly" />
-																			<MintButton selectedBlockchain={'XDC'} balance={balance} amount={amount} image="/images/XDC-Logo.svg" title="XDC Network" subtitle="Super powerful" />
+																		<MintButton selectedBlockchain={'XDC'} balance={balance} amount={amount} image="/images/XDC-Logo.svg" title="XDC Network" subtitle="Super powerful" />
 																	</ModalBody>
 																	<ModalFooter>
 																	</ModalFooter>
