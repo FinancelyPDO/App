@@ -9,7 +9,7 @@ interface StartButtonProps {
   account: string | null;
   amount: string;
 }
-const ConnectButton: React.FC<StartButtonProps> = ({ selectedValues, account, amount}) => {
+const StartButton: React.FC<StartButtonProps> = ({ selectedValues, account, amount}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');
 
@@ -93,4 +93,4 @@ const ConnectButton: React.FC<StartButtonProps> = ({ selectedValues, account, am
   );
 };
 
-export default ConnectButton;
+export default StartButton;
