@@ -15,6 +15,7 @@ export default function Dashboard() {
 	const [amount, setAmount] = useState(0); // From all-proofs (Proof of Reserve) IF EXISTS this mean it's a proof of reserve!
 	const [balance, setBalance] = useState(0);
 	const [successPercentage, setSuccessPercentage] = useState(0);
+	const [creditScore, setCreditScore] = useState(0);
 
 	// CALL POWENS FOR KEY ECHANGES
 	const searchParams = useSearchParams()
@@ -98,9 +99,41 @@ export default function Dashboard() {
 			console.log("Impossible to call balance function: access token is undefined.")
 		}
 	}
+	function getCreditScore() {
+		const data = {
+			"access_token": accessToken
+		}
+
+		if (accessToken) {
+			fetch(`http://localhost:8000/api/web2/creditscore`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ accessToken }),
+			})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error(`Error: ${response.statusText}`);
+				}
+				return response.json();
+			})
+			.then(data => {
+					console.log("MAMA", data);
+					const creditScore = data.creditScore;
+					setCreditScore(creditScore);
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		} else {
+			console.log("Impossible to call balance function: access token is undefined.")
+		}
+	}
 	useEffect(() => {
 		if (accessToken) {
 			getBalance();
+			getCreditScore();
 		}
 	}, [accessToken]);
 
@@ -347,7 +380,7 @@ export default function Dashboard() {
 															track: "stroke-white/10",
 															value: "text-3xl font-semibold text-white",
 														}}
-														value={70}
+														value={creditScore}
 														strokeWidth={4}
 														showValueLabel={true}
 													/>
