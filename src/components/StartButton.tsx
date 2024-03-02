@@ -47,7 +47,7 @@ const StartButton: React.FC<StartButtonProps> = ({ selectedValues, account, amou
 
     if (isAvailable) {
       // The schema id of the project
-      const schemaId = "cef1c3bf56e54570ac931c17d6d65589"
+      const schemaId = "dc162afeb1b4467b837ff0166254194c"
 
       // Launch the process of verification
       // This method can be invoked in a loop when dealing with multiple schemas

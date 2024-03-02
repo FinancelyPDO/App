@@ -96,7 +96,7 @@ export default function AllProofs() {
       window.location.href = authUrl;
     }
   };
-  const authUrl = 'https://ethdenver-sandbox.biapi.pro/2.0/auth/webview/connect?client_id=54484802&redirect_uri=http://localhost:3000/dashboard'
+  const authUrl = 'https://ethdenver-sandbox.biapi.pro/2.0/auth/webview/connect?client_id=99829964&redirect_uri=http://localhost:3000/dashboard'
   return (
     <div className='bg-zinc-900'>
       <div className='backdrop-blur-3xl flex flex-col min-h-screen mx-auto' style={{ maxWidth: '1500px' }}>
