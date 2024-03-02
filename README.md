@@ -30,8 +30,7 @@ This project combines Open Banking with blockchain technology, enabling users to
 - [Features](#features-)
 - [Advantages](#advantages-)
 - [Product](#product-)
-- [Getting Started](#getting-started-)
-- 
+- [Getting Started](#getting-started-) 
 
 ## Web2 Use Cases
 
@@ -118,8 +117,13 @@ These features collectively enable users to demonstrate their financial standing
 
 ### Diagram:
 
-a changer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#### Proof of Reserve Diagram
 
+![Proof of reserve diagram](https://github.com/Provehance/app/main/diagrams/proofOfReserveDiagram.png)
+
+#### Proof of Transaction Diagram
+
+#### Credit Score Diagram
 
 ### WebSite:
 
