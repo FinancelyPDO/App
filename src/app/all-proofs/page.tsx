@@ -31,7 +31,7 @@ export default function AllProofs() {
 
     if (isAvailable) {
       // The schema id of the project
-      const schemaId = "97ce3c8b6d4241879b72fab6d84437e4"
+      const schemaId = "bfa43851d8f94005aa6995fbabe25e11"
 
       // Launch the process of verification
       // This method can be invoked in a loop when dealing with multiple schemas
@@ -88,7 +88,7 @@ export default function AllProofs() {
       console.log('Handling web3 option...');
       const balanceWeb3 = await getAddressBalance(account);
       localStorage.setItem('Web3Balance', balanceWeb3);
-      window.location.href = '/proof-of-reserve';  
+      window.location.href = '/dashboard';  
     } else if (selectedValues.includes('web2') && selectedValues.includes('web3')) {
       const balanceWeb3 = await getAddressBalance(account);
       localStorage.setItem('Web3Balance', balanceWeb3);
@@ -96,9 +96,6 @@ export default function AllProofs() {
       console.log('Handling both web2 and web3 options...');
     }
   };
-
-  const authUrl = 'https://buildhathon-sandbox.biapi.pro/2.0/auth/webview/connect?client_id=61176337&redirect_uri=http://localhost:3000/proof-of-reserve';
-
   return (
     <div className='bg-zinc-900'>
       <div className='backdrop-blur-3xl flex flex-col min-h-screen mx-auto' style={{ maxWidth: '1500px' }}>
