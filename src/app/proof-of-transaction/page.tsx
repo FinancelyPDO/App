@@ -29,10 +29,18 @@ export default function ProofOfTransaction() {
             conditionalValue,
         };
 
-        // Save to localStorage
-        localStorage.setItem('formCompanyDataProofTransaction', JSON.stringify(formCompanyDataProofTransaction));
-        console.log('formCompanyDataProofTransaction', formCompanyDataProofTransaction);
+        // Retrieve existing data from localStorage
+        const existingData = localStorage.getItem('companyDataProofTransactions');
+        const companyDataProofTransactions = existingData ? JSON.parse(existingData) : [];
+
+        // Add the new form data to the array
+        companyDataProofTransactions.push(formCompanyDataProofTransaction);
+
+        // Save the updated array back to localStorage
+        localStorage.setItem('companyDataProofTransactions', JSON.stringify(companyDataProofTransactions));
+        console.log('New formCompanyDataProofTransaction added', companyDataProofTransactions);
     };
+
 
     return (
         <main className='bg-zinc-900'>

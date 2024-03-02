@@ -1,33 +1,61 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import { Card, CardHeader, CardBody, CardFooter, Button } from "@nextui-org/react";
+import { Switch, Input, Select, SelectItem, Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import ConnectButton from '../../components/ConnectButton/ConnectButton';
 import { EthereumProvider } from '@/contexts/EthereumContext';
 import { NetworkProvider } from '@/contexts/NetworkContext';
 import { ProfileProvider } from '@/contexts/ProfileContext';
-import { Switch } from "@nextui-org/react";
-import { Input } from "@nextui-org/react";
 import Image from 'next/image';
-import { Select, SelectItem } from "@nextui-org/react";
 import { ListProofs } from "../../components/constants/listProofs";
-import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import StartButton from '@/components/StartButton';
+
+interface CachedProof {
+  label: string;
+  value: string;
+  date: string;
+  conditionType: string;
+  dataType: string;
+}
+interface CompanyDataProofTransaction {
+  transactionName: string;
+  conditionalValue: string;
+  anterorityDate: string;
+  conditionType: string;
+  dataType: string;
+}
+
 export default function AllProofs() {
   const [selectedValuesCard1, setSelectedValuesCard1] = useState<string[]>([]);
   const [selectedValuesCard2, setSelectedValuesCard2] = useState<string[]>([]);
   const [account, setAccount] = useState<string | null>(null);
   const [amount, setAmount] = useState('');
-  
-  const handleAmountChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
+  const [companySelected, setCompanySelected] = useState<CachedProof | null>(null);
+  const [cachedProofs, setCachedProofs] = useState<CachedProof[]>([]); // State to store cached data
+
+  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value); // Update the amount state with the new input value
   };
 
   const handleAccountChange = (newAccount: string | null) => {
     setAccount(newAccount);
     console.log('Account:', newAccount);
+  };
+
+  const handleCompanyChange = (selectedKey: React.Key) => {
+    console.log('cachedProofs', cachedProofs)
+    const selectedCompanyObject = cachedProofs.find(proof => proof.label === selectedKey);
+
+    if (selectedCompanyObject) {
+      // Assuming you want to store the full object in your state
+      setCompanySelected(selectedCompanyObject);
+      console.log('Company Selected:', selectedCompanyObject);
+    } else {
+      console.log('Selected company not found in cached proofs');
+    }
   };
 
   // Handle value change for Card 1
@@ -48,7 +76,37 @@ export default function AllProofs() {
     }
   };
 
-  
+  useEffect(() => {
+    // Load cached data on component mount
+    const loadedData = localStorage.getItem('companyDataProofTransactions');
+    if (loadedData) {
+      const parsedData: CompanyDataProofTransaction[] = JSON.parse(loadedData);
+      const cachedNames = parsedData.map((item) => ({
+        label: item.transactionName,
+        value: item.conditionalValue,
+        date: item.anterorityDate,
+        conditionType: item.conditionType,
+        dataType: item.dataType,
+      }));
+      setCachedProofs(cachedNames);
+    }
+  }, []);
+
+  const handleGenerateProof = async (selectedValues: string[]) => {
+    if (companySelected) {
+      localStorage.setItem('selectedCompany_ProofTransactions', JSON.stringify(companySelected));
+      console.log('companySelected', companySelected);
+    }
+    if (selectedValues.includes('web2') && !selectedValues.includes('web3')) {
+      console.log('Redirecting to auth URL for web2...');
+      // call powens to get List of Transaction
+    } else if (!selectedValues.includes('web2') && selectedValues.includes('web3')) {
+      console.log('Handling web3 option...');
+      window.location.href = '/dashboard';
+      // Need to call etherscan API
+    }
+  };
+
   return (
     <div className='bg-zinc-900'>
       <div className='backdrop-blur-3xl flex flex-col min-h-screen mx-auto' style={{ maxWidth: '1500px' }}>
@@ -114,7 +172,7 @@ export default function AllProofs() {
                 </CardHeader>
                 <CardBody className="overflow-visible py-2 px-10">
                   <div key={'bordered'} className="flex flex-col w-full mb-6 gap-4">
-                    <Input type="number" variant={'bordered'} label="Amount" placeholder="$100.000" value={amount} onChange={handleAmountChange}/>
+                    <Input type="number" variant={'bordered'} label="Amount" placeholder="$100.000" value={amount} onChange={handleAmountChange} />
                     <Input type="text" variant={'bordered'} label="Condition" placeholder="greater" className="mb-4" />
                   </div>
                   <Switch className='mb-3' color='warning'
@@ -139,9 +197,10 @@ export default function AllProofs() {
                 <CardBody className="overflow-visible py-2 px-10">
                   <div key={'bordered'} className="flex flex-col w-full mb-6 gap-4">
                     <Autocomplete
-                      placeholder='Type to search...'
+                      placeholder='ETH Denver'
                       className="mb-4"
                       variant={'bordered'}
+                      onSelectionChange={handleCompanyChange}
                       startContent={
                         <Image
                           src="/images/icon/search.svg"
@@ -151,9 +210,9 @@ export default function AllProofs() {
                           className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0"
                         />}
                     >
-                      {ListProofs.map((listProof) => (
-                        <AutocompleteItem key={listProof.value} value={listProof.value}>
-                          {listProof.label}
+                      {cachedProofs.map((Proofs) => (
+                        <AutocompleteItem key={Proofs.label} value={Proofs.label} className='text-black'>
+                          {Proofs.label}
                         </AutocompleteItem>
                       ))}
                     </Autocomplete>
