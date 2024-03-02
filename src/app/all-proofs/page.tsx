@@ -35,7 +35,7 @@ export default function AllProofs() {
   const [amount, setAmount] = useState('');
   const [companySelected, setCompanySelected] = useState<CachedProof | null>(null);
   const [cachedProofs, setCachedProofs] = useState<CachedProof[]>([]); // State to store cached data
-  const [selectedProof, setSelectedProof] = useState<string | null>(null);
+  const [selectedProof, setSelectedProof] = useState<string | null>('reserve');
 
   const handleProofChange = (selection: any) => {
     // Assuming 'selection' might be a complex structure or a string
@@ -172,7 +172,7 @@ export default function AllProofs() {
                 label="Select your Proof"
                 color={'warning'}
                 placeholder="Reserve"
-                disabledKeys={["fidelities"]}
+                disabledKeys={["transaction-authenticity","icome-verification","asset-backing","creditworthiness"]}
                 className="max-w-xs font-bold pb-5"
                 onSelectionChange={handleProofChange}
                 size='lg'
@@ -188,9 +188,9 @@ export default function AllProofs() {
               {/* NEED TO FACTORIZE THE CODE !}
               {/* Grid Proof of Reserve */}
               {selectedProof === 'reserve' && (
-                <Card isBlurred className="py-4 bg-opacity-75 bg-thulian_pink-700">
-                  <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                    <p className="text-3xl font-bold pb-2">Reserve</p>
+                <Card isBlurred className="mx-auto py-4 bg-thulian_pink-700 bg-opacity-75 max-w-xl w-full">
+                  <CardHeader className="pb-5 pt-2 px-4 flex flex-col items-center justify-center text-center">
+                    <p className="text-3xl font-bold pb-4">Reserve</p>
                     <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
                   </CardHeader>
                   <CardBody className="overflow-visible py-4 px-10">
@@ -214,10 +214,10 @@ export default function AllProofs() {
               )}
               {/* Grid Transactions */}
               {selectedProof === 'transaction' && (
-                <Card isBlurred className="py-4 bg-tiffany_blue bg-opacity-75">
-                  <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                    <p className="text-3xl font-bold pb-2">Transaction</p>
-                    <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                <Card isBlurred className="mx-auto py-4 bg-tiffany_blue bg-opacity-75 max-w-lg w-full">
+                  <CardHeader className="pb-5 pt-2 px-4 flex flex-col items-center justify-center text-center">
+                    <p className="text-3xl font-bold pb-4">Transaction</p>
+                    <small className="text-gray-900 text-sm">Connect your bank account to the app to demonstrate proof of consistent payments and financial fidelity.</small>
                   </CardHeader>
                   <CardBody className="overflow-visible py-2 px-10">
                     <div key={'bordered'} className="flex flex-col w-full mb-6 gap-4">
@@ -258,28 +258,29 @@ export default function AllProofs() {
                   </CardFooter>
                 </Card>
               )}
-              {/* Grid Proof of Insurance claims */}
-              {selectedProof === 'insurance' && (
-                <Card isBlurred className="py-4 bg-thulian_pink-700 bg-opacity-75">
-                  <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                    <p className="text-3xl font-bold pb-2">Insurance claims</p>
-                    <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
+              {/* Grid Proof of real-world-asset */}
+              {selectedProof === 'real-world-asset' && (
+                <Card isBlurred className="mx-auto py-4 bg-thulian_pink-700 bg-opacity-75 max-w-xl w-full">
+                  <CardHeader className="pb-5 pt-2 px-4 flex flex-col items-center justify-center text-center">
+                    <p className="text-3xl font-bold pb-5">Backed Real-World Assets</p>
+                    <small className="text-gray-900 text-sm">Connect your bank account to the app to verify your ownership of real-world assets, facilitating the creation of tokenized representations grounded in authenticated financial evidence.</small>
                   </CardHeader>
-                  <CardBody className="overflow-visible py-2 px-10">
+                  <CardBody className="overflow-visible py-2 px-10 text-center">
+                    {/* CardBody content (if any) */}
                   </CardBody>
                   <CardFooter className="flex justify-center items-center">
                     <Button className='bg-dark_purple text-white' size="lg">
-                      Comming soon
+                      Coming soon
                     </Button>
                   </CardFooter>
                 </Card>
               )}
               {/* Grid Funds */}
-              {selectedProof === 'funds' && (
-                <Card isBlurred className="py-4 bg-tiffany_blue bg-opacity-75">
-                  <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                    <p className="text-3xl font-bold pb-2">Funds</p>
-                    <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
+              {selectedProof === 'tokenized-credit-histories' && (
+                <Card isBlurred className="mx-auto py-4 bg-tiffany_blue bg-opacity-75 max-w-xl w-full">
+                  <CardHeader className="pb-5 pt-2 px-4 flex flex-col items-center justify-center text-center">
+                    <p className="text-3xl font-bold pb-5">Tokenized Credit Histories</p>
+                    <small className="text-gray-900 text-sm">Link your bank account to the app to generate a secure, private ledger of your credit history, enabling the tokenization of your financial trustworthiness for blockchain applications that necessitate verified credit integrity.</small>
                   </CardHeader>
                   <CardBody className="overflow-visible py-2 px-10">
                   </CardBody>
