@@ -1,5 +1,22 @@
 # UIUX Research
 
+# Research Process Leading to Project Design
+
+## Overview
+
+The design of Provehance was informed by a comprehensive research process aimed at understanding the needs, preferences, and pain points of potential users in both traditional finance (Web2) and blockchain environments (Web3). The research process encompassed various elements such as Empathy Maps, Customer Personas, Customer Scenarios, and Storyboards to ensure a user-centric approach to product development.
+
+## Empathy Maps
+
+Empathy maps were created to gain insights into the thoughts, feelings, and motivations of potential users when interacting with financial services and blockchain technology. By understanding their emotions, pain points, and aspirations, we were able to empathize with their experiences and design solutions that address their specific needs effectively.
+
+## Customer Personas
+
+Customer personas were developed to represent fictional users with diverse backgrounds, goals, challenges, and needs. These personas helped us visualize and understand the different user segments and tailor our product features and functionalities to meet their requirements effectively. By empathizing with the personas, we were able to design a platform that resonates with the target audience and adds value to their financial management processes.
+
+## Customer Scenarios
+
+Customer scenarios were created to illustrate how potential users would interact with Provehance in real-life situations to address their financial needs. These scenarios provided valuable insights into the specific use cases and pain points of users, allowing us to design intuitive workflows and user interfaces that streamline their experience and enhance usability.
 # Customer Personas
 
 ## Crypto Enthusiast Chris
@@ -95,26 +112,6 @@
 - **Background**: Taylor, a tech-savvy individual, seeks innovative solutions for managing her finances on the blockchain.
 - **Scenario**: Taylor uses Provehance to explore different financial proofs available on the platform. She generates proofs of reserve, proof of regular payment fidelity, and proof of transaction, experimenting with different features to enhance her financial management on the blockchain.
 
-
-# Research Process Leading to Project Design
-
-## Overview
-
-The design of Provehance was informed by a comprehensive research process aimed at understanding the needs, preferences, and pain points of potential users in both traditional finance (Web2) and blockchain environments (Web3). The research process encompassed various elements such as Empathy Maps, Customer Personas, Customer Scenarios, and Storyboards to ensure a user-centric approach to product development.
-
-## Empathy Maps
-
-Empathy maps were created to gain insights into the thoughts, feelings, and motivations of potential users when interacting with financial services and blockchain technology. By understanding their emotions, pain points, and aspirations, we were able to empathize with their experiences and design solutions that address their specific needs effectively.
-
-## Customer Personas
-
-Customer personas were developed to represent fictional users with diverse backgrounds, goals, challenges, and needs. These personas helped us visualize and understand the different user segments and tailor our product features and functionalities to meet their requirements effectively. By empathizing with the personas, we were able to design a platform that resonates with the target audience and adds value to their financial management processes.
-
-## Customer Scenarios
-
-Customer scenarios were created to illustrate how potential users would interact with Provehance in real-life situations to address their financial needs. These scenarios provided valuable insights into the specific use cases and pain points of users, allowing us to design intuitive workflows and user interfaces that streamline their experience and enhance usability.
-
-
 ## Concrete Design Choices
 
 * **User Interface Design**: Based on insights from empathy maps and customer personas, we opted for a clean and intuitive user interface with clear navigation and minimalistic design elements. This choice ensures that users can easily navigate the platform and access the features they need without any confusion or distractions.
@@ -155,5 +152,3 @@ In line with the detailed assumptions and design choices made for Provehance, we
 
 **Figma template :**
 [Kolosave Technologies (Community) – Figma](https://www.figma.com/file/jfu7CtYodGNpLmGR4v8PYE/Kolosave-Technologies-(Community)?type=design&node-id=0-1&mode=design&t=IRLFiFfUKqT317V3-0)
-
-**Actual website design :**

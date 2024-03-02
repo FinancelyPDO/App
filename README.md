@@ -130,19 +130,6 @@ These scenarios showcase the project's capability to facilitate a wide range of 
 
 ![Credit score diagram](https://github.com/Provehance/app/blob/63d3f98c3a24faf94b7b3841d5d56b36d5f3151e/diagrams/creditScoreDiagram.png)
 
-### WebSite:
-
-a changer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-- [**Live Site**](https://): Check out the live version of . 
-
-### Code Reference:
-A changer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-Explore key functionalities in our code:
-- **Integrations**:
-  
-
-- **Core Smart Contract Features**:
 
  
 ### Deployment Strategy

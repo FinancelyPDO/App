@@ -91,6 +91,7 @@ const MintButton: React.FC<MintButtonProps> = ({ selectedBlockchain, balance, am
 							<p className="text-xl font-bold break-words">Almost their!</p>
 						</ModalHeader>
 						<div className="p-5">
+							<p>{modalContent}</p>
 							<p className="break-words">This hash is your unique proof. Please keep it safe as it represents your ability to prove your actions.</p>
 							<p>The last step is to link this hash with your identity for additional security.</p>
 						</div>
