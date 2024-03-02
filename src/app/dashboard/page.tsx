@@ -6,6 +6,10 @@ import Footer from '../../components/footer';
 import Image from 'next/image';
 import { Card, CardHeader, CardBody, CardFooter, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Autocomplete, AutocompleteItem, Progress, Accordion, AccordionItem, Table, TableColumn, TableHeader, TableRow, TableBody, TableCell, Avatar, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, CircularProgress, Chip } from "@nextui-org/react";
 import { useSearchParams } from 'next/navigation';
+import { ethers } from 'ethers';
+import { abiLukso, contractAddressLukso } from '../../components/constants/luksoABI.js';
+import { abiXDC, contractAddressXDC } from '../../components/constants/xdcABI.js';
+import lukso from '@lukso/web3-onboard-config';
 
 export default function Dashboard() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -15,6 +19,11 @@ export default function Dashboard() {
 	const [amount, setAmount] = useState(0); // From all-proofs (Proof of Reserve) IF EXISTS this mean it's a proof of reserve!
 	const [balance, setBalance] = useState(0);
 	const [successPercentage, setSuccessPercentage] = useState(0);
+	const [account, setAccount] = useState<string | null>(null);
+	const handleAccountChange = (newAccount: string | null) => {
+		setAccount(newAccount);
+		console.log('Account:', newAccount);
+	};
 
 	// CALL POWENS FOR KEY ECHANGES
 	const searchParams = useSearchParams()
@@ -43,10 +52,10 @@ export default function Dashboard() {
 			.then((data: any) => {
 				console.log(data);
 				console.log('Access Token:', data.access_token);
-				if(localStorage.getItem('accessToken') == null || localStorage.getItem('accessToken') == "null" || localStorage.getItem('accessToken') == "undefined"){
+				if (localStorage.getItem('accessToken') == null || localStorage.getItem('accessToken') == "null" || localStorage.getItem('accessToken') == "undefined") {
 					setAccessToken(data.access_token);
 					localStorage.setItem('accessToken', data.access_token);
-				}else{
+				} else {
 					setAccessToken(localStorage.getItem('accessToken'));
 				}
 			})
@@ -64,10 +73,10 @@ export default function Dashboard() {
 		if (accessToken) {
 			fetch(`https://${process.env.NEXT_PUBLIC_DOMAINE}-sandbox.biapi.pro/2.0/users/me/accounts`, {
 				method: 'GET',
-        		headers: {
+				headers: {
 					'Authorization': 'Bearer ' + accessToken,
-          			'Content-Type': 'application/json'
-        		},
+					'Content-Type': 'application/json'
+				},
 			})
 				.then(response => response.json())
 				.then(data => {
@@ -108,6 +117,50 @@ export default function Dashboard() {
 		console.log("Web3 balance is: " + web3balance);
 	}, []);
 
+	//////////MINT LUKSO AND XDC////////////
+
+	async function mintSBT(mintSBTCondition: number, mintSBTValue: number, targetContractType: string) {
+		try {
+			if (typeof window.ethereum !== "undefined") {
+				const provider = new ethers.BrowserProvider(window.ethereum);
+
+				const signer = await provider.getSigner();
+
+				let targetContract;
+				if (targetContractType === 'Lukso') {
+					targetContract = new ethers.Contract(contractAddressLukso, abiLukso, signer);
+				} else if (targetContractType === 'XDC') {
+					targetContract = new ethers.Contract(contractAddressXDC, abiXDC, signer);
+				}
+
+				const targetCalldata = await targetContract.claimSBT(mintSBTCondition, mintSBTValue);
+				console.log('hash', targetCalldata);
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	}
+	async function handleButtonClickLukso() { // To call onClose and mintSBT when generate proof
+		console.log('balance', balance);
+		console.log('amount', amount);
+		const balanceInt = Math.trunc(balance);
+		const amountInt = Math.trunc(amount);
+
+		// Now pass these integer values to the mintSBT function
+		await mintSBT(amountInt, balanceInt, 'Lukso')
+		onClose();
+	}
+	async function handleButtonClickXDC() { 
+		console.log('balance', balance);
+		console.log('amount', amount);
+		const balanceInt = Math.trunc(balance);
+		const amountInt = Math.trunc(amount);
+
+		// Now pass these integer values to the mintSBT function
+		await mintSBT(amountInt, balanceInt, 'XDC')
+		onClose();
+	}
+
 	return (
 		<main className='bg-zinc-900'>
 			<div className='backdrop-blur-3xl flex flex-col min-h-screen mx-auto' style={{ maxWidth: '1500px' }}>
@@ -140,7 +193,7 @@ export default function Dashboard() {
 							height: '330px',
 						}}
 					/>
-					{accessToken || web3balance  ? (
+					{accessToken || web3balance ? (
 						<>
 							{(amount > 0 || web3balance) && (
 								<>
@@ -244,7 +297,15 @@ export default function Dashboard() {
 
 												<CardFooter className="mb-2">
 													<Button className="mx-auto" onPress={() => handleOpen()} disabled>Generate a proof</Button>
-
+													{/* <div className="flex-1 flex justify-center items-center z-10">
+														<EthereumProvider>
+															<NetworkProvider>
+																<ProfileProvider>
+																	<ConnectButton onAccountChange={handleAccountChange} />
+																</ProfileProvider>
+															</NetworkProvider>
+														</EthereumProvider>
+													</div> */}
 													<Modal
 														size="md"
 														isOpen={isOpen}
@@ -255,7 +316,7 @@ export default function Dashboard() {
 																<>
 																	<ModalHeader className="flex flex-col gap-1">Choose a network</ModalHeader>
 																	<ModalBody>
-																		<Button color="default" variant="bordered" onPress={onClose} size="lg" className="flex items-left justify-between p-4">
+																		<Button color="default" variant="bordered" onPress={handleButtonClickLukso} size="lg" className="flex items-left justify-between p-4">
 																			<div className="flex items-center">
 																				<Avatar isBordered radius="sm" src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />
 																				<div className="ml-3">
@@ -264,7 +325,7 @@ export default function Dashboard() {
 																				</div>
 																			</div>
 																		</Button>
-																		<Button color="default" variant="bordered" onPress={onClose} size="lg" className="flex items-left justify-between p-4">
+																		<Button color="default" variant="bordered" onPress={handleButtonClickXDC} size="lg" className="flex items-left justify-between p-4">
 																			<div className="flex items-center">
 																				<Avatar isBordered radius="sm" src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />
 																				<div className="ml-3">
@@ -273,6 +334,7 @@ export default function Dashboard() {
 																				</div>
 																			</div>
 																		</Button>
+
 																	</ModalBody>
 																	<ModalFooter>
 																	</ModalFooter>
