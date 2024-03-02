@@ -52,12 +52,12 @@ export default function Dashboard() {
 			.then((data: any) => {
 				console.log(data);
 				console.log('Access Token:', data.access_token);
-				if (localStorage.getItem('accessToken') == null || localStorage.getItem('accessToken') == "null" || localStorage.getItem('accessToken') == "undefined") {
-					setAccessToken(data.access_token);
-					localStorage.setItem('accessToken', data.access_token);
-				} else {
-					setAccessToken(localStorage.getItem('accessToken'));
-				}
+				//if (localStorage.getItem('accessToken') == null || localStorage.getItem('accessToken') == "null" || localStorage.getItem('accessToken') == "undefined") {
+				setAccessToken(data.access_token);
+				//localStorage.setItem('accessToken', data.access_token);
+				//} else {
+				//setAccessToken(localStorage.getItem('accessToken'));
+				//}
 			})
 			.catch((error: any) => {
 				console.error('Error:', error);
@@ -132,9 +132,12 @@ export default function Dashboard() {
 				} else if (targetContractType === 'XDC') {
 					targetContract = new ethers.Contract(contractAddressXDC, abiXDC, signer);
 				}
-
-				const targetCalldata = await targetContract.claimSBT(mintSBTCondition, mintSBTValue);
-				console.log('hash', targetCalldata);
+				if (targetContract) {
+					const targetCalldata = await targetContract.claimSBT(mintSBTCondition, mintSBTValue);
+					console.log('data', targetCalldata);
+				} else {
+					console.error('Unsupported target contract type:', targetContractType);
+				}
 			}
 		} catch (error) {
 			console.error(error);
@@ -412,7 +415,7 @@ export default function Dashboard() {
 											</Accordion>
 										</CardBody>
 										<CardFooter className="mb-2">
-											<Button className="mx-auto" disabled  size='lg'>Generate a proof</Button>
+											<Button className="mx-auto" disabled size='lg'>Generate a proof</Button>
 										</CardFooter>
 									</Card>
 								</div>
