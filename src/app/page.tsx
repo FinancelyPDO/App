@@ -88,7 +88,7 @@ export default function Home() {
                 <p className="text-gray-500 mb-8 text-xl">
                   Verify asset holdings in real-time, ensuring transparency and trust in financial declarations.
                 </p>
-                <Link href="/proof-of-reserve"
+                <Link href="/dashboard"
                   className="inline-block bg-white ml-5 text-black hover:bg-old_rose py-3 px-10 rounded-lg transition duration-300">Dive In
                 </Link>
               </div>
@@ -102,7 +102,7 @@ export default function Home() {
                 <p className="text-gray-500 mb-8 text-xl">
                   Leverage our Credit Score Index to quantify and demonstrate your credibility to partners and customers.
                 </p>
-                <Link href="/"
+                <Link href="/credit-score"
                   className="inline-block bg-white ml-5 text-black hover:bg-old_rose py-3 px-10 rounded-lg transition duration-300">Dive In
                 </Link>
               </div>
