@@ -3,13 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
-import Image from 'next/image';
 import { Card, CardHeader, CardBody, CardFooter, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Autocomplete, AutocompleteItem, Progress, Accordion, AccordionItem, Table, TableColumn, TableHeader, TableRow, TableBody, TableCell, Avatar, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, CircularProgress, Chip } from "@nextui-org/react";
 import { useSearchParams } from 'next/navigation';
-import { ethers } from 'ethers';
-import { abiLukso, contractAddressLukso } from '../../components/constants/luksoABI.js';
-import { abiXDC, contractAddressXDC } from '../../components/constants/xdcABI.js';
-import lukso from '@lukso/web3-onboard-config';
+import MintButton from '@/components/MintButton';
 
 export default function Dashboard() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -118,51 +114,6 @@ export default function Dashboard() {
 	}, []);
 
 	//////////MINT LUKSO AND XDC////////////
-
-	async function mintSBT(mintSBTCondition: number, mintSBTValue: number, targetContractType: string) {
-		try {
-			if (typeof window.ethereum !== "undefined") {
-				const provider = new ethers.BrowserProvider(window.ethereum);
-
-				const signer = await provider.getSigner();
-
-				let targetContract;
-				if (targetContractType === 'Lukso') {
-					targetContract = new ethers.Contract(contractAddressLukso, abiLukso, signer);
-				} else if (targetContractType === 'XDC') {
-					targetContract = new ethers.Contract(contractAddressXDC, abiXDC, signer);
-				}
-				if (targetContract) {
-					const targetCalldata = await targetContract.claimSBT(mintSBTCondition, mintSBTValue);
-					console.log('data', targetCalldata);
-				} else {
-					console.error('Unsupported target contract type:', targetContractType);
-				}
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	}
-	async function handleButtonClickLukso() { // To call onClose and mintSBT when generate proof
-		console.log('balance', balance);
-		console.log('amount', amount);
-		const balanceInt = Math.trunc(balance);
-		const amountInt = Math.trunc(amount);
-
-		// Now pass these integer values to the mintSBT function
-		await mintSBT(amountInt, balanceInt, 'Lukso')
-		onClose();
-	}
-	async function handleButtonClickXDC() {
-		console.log('balance', balance);
-		console.log('amount', amount);
-		const balanceInt = Math.trunc(balance);
-		const amountInt = Math.trunc(amount);
-
-		// Now pass these integer values to the mintSBT function
-		await mintSBT(amountInt, balanceInt, 'XDC')
-		onClose();
-	}
 
 	return (
 		<main className='bg-zinc-900'>
@@ -298,36 +249,8 @@ export default function Dashboard() {
 																<>
 																	<ModalHeader className="flex flex-col gap-1">Choose a network</ModalHeader>
 																	<ModalBody>
-																		<Button color="default" variant="bordered" onPress={handleButtonClickLukso} size="lg" className="flex items-left justify-between p-4">
-																			<div className="flex items-center">
-																				<Image
-																					src="/images/Lukso-logo.jpeg"
-																					alt="Logo"
-																					width={48}
-																					height={48}
-																					className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0"
-																				/>
-																				<div className="ml-3">
-																					<h2 className="mb-1">Lukso Network</h2>
-																					<p className="text-sm">Super user-friendly</p>
-																				</div>
-																			</div>
-																		</Button>
-																		<Button color="default" variant="bordered" onPress={handleButtonClickXDC} size="lg" className="flex items-left justify-between p-4">
-																			<div className="flex items-center">
-																				<Image
-																					src="/images/XDC-Logo.svg"
-																					alt="Logo"
-																					width={48}
-																					height={48}
-																					className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0"
-																				/>
-																				<div className="ml-3">
-																					<h2 className="mb-1">XDC Network</h2>
-																					<p className="text-sm">Super powerful</p>
-																				</div>
-																			</div>
-																		</Button>
+																		<MintButton selectedBlockchain={'Lukso'} balance={balance} amount={amount} image="/images/Lukso-logo.jpeg" title="Lukso Network" subtitle="Super user-friendly" />
+																			<MintButton selectedBlockchain={'XDC'} balance={balance} amount={amount} image="/images/XDC-Logo.svg" title="XDC Network" subtitle="Super powerful" />
 																	</ModalBody>
 																	<ModalFooter>
 																	</ModalFooter>
