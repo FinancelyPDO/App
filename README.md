@@ -123,7 +123,11 @@ These features collectively enable users to demonstrate their financial standing
 
 #### Proof of Transaction Diagram
 
+![Proof of transaction diagram](https://github.com/Provehance/app/diagrams/proofOfTransactionDiagram.png)
+
 #### Credit Score Diagram
+
+![Credit score diagram](https://github.com/Provehance/app/diagrams/creditScoreDiagram.png)
 
 ### WebSite:
 
