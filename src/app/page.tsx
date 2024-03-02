@@ -156,8 +156,8 @@ export default function Home() {
               </div>
             </div>
           </section>
-          {/* Section 6 : Final Information */}
-          <section className='flex flex-col relative my-40'>
+          {/* Section 6 : Contact */}
+          <section id="contact" className='flex flex-col relative my-40'>
             <div className="w-full md:w-1/2 px-4 mb-20 ml-8">
               <h2 className="text-6xl font-bold text-white mb-10">Make Your Move with Confidence</h2>
               <p className="text-2xl text-gray-400">
