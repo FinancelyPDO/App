@@ -72,21 +72,37 @@ const MintButton: React.FC<MintButtonProps> = ({ selectedBlockchain, balance, am
 					</div>
 				</div>
 			</Button>
+
 			{isModalOpen && (
-				<Modal backdrop={'blur'} isOpen={isModalOpen} onClose={closeModal}>
-					<ModalContent>
-						<ModalHeader className="flex">
-							<p>{modalContent}</p>
+				<Modal backdrop={'blur'} isOpen={isModalOpen} onClose={closeModal} className="overflow-auto max-w-4xl w-full mx-auto">
+					<ModalContent className="bg-white shadow-lg rounded-lg overflow-hidden">
+						<ModalHeader className="flex justify-start items-center p-5 border-b">
+							<Image
+								src="/images/icon/success.svg"
+								alt="Logo"
+								width={36}
+								height={36}
+								className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0 mr-2"
+							/>
+							<p className="text-xl font-bold break-words">Success!</p>
 						</ModalHeader>
-						<ModalFooter className="flex justify-between items-center">
+						<div className="p-5">
+							<p className="break-words">This hash is your unique proof. Please keep it safe as it represents your ability to prove your actions.</p>
+							<p>The last step is to link this hash with your identity for additional security.</p>
+						</div>
+						<ModalFooter className="flex justify-between items-center p-5 border-t">
+							<Button className='bg-tiffany_blue' variant="solid" radius='lg'> {/**onPress={linkIdentity} */}
+								Polygon Id
+							</Button>
 							<Button color="danger" variant="light" onPress={closeModal}>
 								Close
 							</Button>
 						</ModalFooter>
-					</ModalContent>
+				</ModalContent>
 				</Modal>
-			)}
-		</div>
+	)
+}
+		</div >
 	);
 };
 
