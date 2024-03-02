@@ -105,7 +105,7 @@ export default function Dashboard() {
 		}
 
 		if (accessToken) {
-			fetch(`http://localhost:8000/api/web2/creditscore`, {
+			fetch(`http://localhost:8000/web2/creditscore`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -119,8 +119,7 @@ export default function Dashboard() {
 				return response.json();
 			})
 			.then(data => {
-					console.log("MAMA", data);
-					const creditScore = data.creditScore;
+					const creditScore = (data *100 / 10) * 100;
 					setCreditScore(creditScore);
 				})
 				.catch(error => {
