@@ -23,18 +23,16 @@ export default function Dashboard() {
 
 	useEffect(() => {
 		const code = searchParams.get('code')
-
 		const data = {
 			code: code,
 			client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
-			client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET
+			client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
 		};
-
 		console.log('Code:', code);
 		console.log('Client ID:', data.client_id);
 		console.log('Secret:', data.client_secret);
 
-		fetch(`https://buildhathon-sandbox.biapi.pro/2.0/auth/token/access`, {
+		fetch(`https://${process.env.NEXT_PUBLIC_DOMAINE}-sandbox.biapi.pro/2.0/auth/token/access`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -45,7 +43,12 @@ export default function Dashboard() {
 			.then((data: any) => {
 				console.log(data);
 				console.log('Access Token:', data.access_token);
-				setAccessToken(data.access_token);
+				if(localStorage.getItem('accessToken') == null || localStorage.getItem('accessToken') == "null" || localStorage.getItem('accessToken') == "undefined"){
+					setAccessToken(data.access_token);
+					localStorage.setItem('accessToken', data.access_token);
+				}else{
+					setAccessToken(localStorage.getItem('accessToken'));
+				}
 			})
 			.catch((error: any) => {
 				console.error('Error:', error);
@@ -59,7 +62,7 @@ export default function Dashboard() {
 		}
 
 		if (accessToken) {
-			fetch(`https://buildhathon-sandbox.biapi.pro/2.0/users/me/accounts`, {
+			fetch(`https://${process.env.NEXT_PUBLIC_DOMAINE}-sandbox.biapi.pro/2.0/users/me/accounts`, {
 				method: 'GET',
         		headers: {
 					'Authorization': 'Bearer ' + accessToken,
@@ -376,7 +379,6 @@ export default function Dashboard() {
 										<CardBody>
 											<p className="mx-auto">You don&apos;t fit the requirement.</p>
 										</CardBody>
-
 										<CardFooter className="mb-2">
 											<Button className="mx-auto" disabled>Generate a proof</Button>
 										</CardFooter>
