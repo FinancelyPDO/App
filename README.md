@@ -120,15 +120,15 @@ These scenarios showcase the project's capability to facilitate a wide range of 
 
 #### Proof of Reserve Diagram
 
-![Proof of Reserve Diagram](https://github.com/Provehance/app/blob/63d3f98c3a24faf94b7b3841d5d56b36d5f3151e/diagrams/creditScoreDiagram.png)
+![Proof of Reserve Diagram](https://github.com/Provehance/app/blob/63d3f98c3a24faf94b7b3841d5d56b36d5f3151e/diagrams/proofOfReserveDiagram.png)
 
 #### Proof of Transaction Diagram
 
-![Proof of transaction diagram](https://github.com/Provehance/app/blob/63d3f98c3a24faf94b7b3841d5d56b36d5f3151e/diagrams/proofOfReserveDiagram.png)
+![Proof of transaction diagram](https://github.com/Provehance/app/blob/63d3f98c3a24faf94b7b3841d5d56b36d5f3151e/diagrams/proofOfTransactionDiagram.png)
 
 #### Credit Score Diagram
 
-![Credit score diagram](https://github.com/Provehance/app/blob/63d3f98c3a24faf94b7b3841d5d56b36d5f3151e/diagrams/proofOfTransactionDiagram.png)
+![Credit score diagram](https://github.com/Provehance/app/blob/63d3f98c3a24faf94b7b3841d5d56b36d5f3151e/diagrams/creditScoreDiagram.png)
 
 ### WebSite:
 
