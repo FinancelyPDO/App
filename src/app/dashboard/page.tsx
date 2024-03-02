@@ -75,6 +75,8 @@ export default function Dashboard() {
 					console.log("Balance is: " + balance);
 					const currentAmount = parseFloat(localStorage.getItem('amount') || '0');
 					console.log("Current amount is: " + currentAmount);
+					setAmount(currentAmount);
+					console.log("amount is: " + amount);
 					let successPercent = (balance / currentAmount) * 100;
 					console.log("Success percentage is: " + successPercent);
 					successPercent = Math.min(Math.max(successPercent, 0), 100);
@@ -140,7 +142,7 @@ export default function Dashboard() {
 					/>
 					{accessToken || web3balance  ? (
 						<>
-							{amount > 0 || web3balance && (
+							{(amount > 0 || web3balance) && (
 								<>
 									{/*Proof of reserve*/}
 									<section className="flex items-center justify-center my-6">
