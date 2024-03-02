@@ -35,6 +35,24 @@ export default function AllProofs() {
   const [amount, setAmount] = useState('');
   const [companySelected, setCompanySelected] = useState<CachedProof | null>(null);
   const [cachedProofs, setCachedProofs] = useState<CachedProof[]>([]); // State to store cached data
+  const [selectedProof, setSelectedProof] = useState<string | null>(null);
+
+  const handleProofChange = (selection: any) => {
+    // Assuming 'selection' might be a complex structure or a string
+    // You might need to adjust this logic based on the actual structure of 'Selection'
+    let selectedKey: React.Key | null = null;
+
+    if (typeof selection === 'string') {
+      // Directly use the selection if it's a string
+      selectedKey = selection;
+    } else if (selection instanceof Set && selection.size > 0) {
+      // If it's a Set, extract the first key
+      selectedKey = selection.values().next().value;
+    }
+    // Update state, ensure to cast to string if your state expects a string type
+    setSelectedProof(selectedKey as string | null);
+    console.log('Selected Proof:', selectedKey)
+  };
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value); // Update the amount state with the new input value
@@ -115,7 +133,7 @@ export default function AllProofs() {
           {/* Section 1 : List Proof */}
           <section className='flex flex-col relative my-40'>
             <div className="flex flex-row items-start ml-20 space-x-4">
-              <div className="flex-1 px-4 mb-20">
+              <div className="flex-1 px-4 mb-12">
                 <h2 className="text-7xl font-bold text-white mb-10">Elevate Trust with Verifiable Proofs</h2>
                 <p className="text-xl text-gray-300">
                   Unveil the truth with a suite of verifiable proofs. Our platform provides a range of proof generation services designed to meet diverse financial and personal verification needs.
@@ -149,117 +167,129 @@ export default function AllProofs() {
                 height: '330px',
               }}
             />
-            <div className="rounded-xl grid grid-cols-2 gap-8 px-16 pb-12">
+            <div className="flex justify-center items-center w-full mb-10">
+              <Select
+                label="Select your Proof"
+                color={'warning'}
+                placeholder="Reserve"
+                disabledKeys={["fidelities"]}
+                className="max-w-xs font-bold pb-5"
+                onSelectionChange={handleProofChange}
+                size='lg'
+              >
+                {ListProofs.map((proof) => (
+                  <SelectItem key={proof.value} value={proof.value}>
+                    {proof.label}
+                  </SelectItem>
+                ))}
+              </Select>
+            </div>
+            <div className="flex justify-center items-center px-16 pb-12">
               {/* NEED TO FACTORIZE THE CODE !}
               {/* Grid Proof of Reserve */}
-              <Card isBlurred className="py-4 bg-opacity-75 bg-thulian_pink-700">
-                <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                  <Select
-                    label="Select your Proof"
-                    color={'warning'}
-                    placeholder="Reserve"
-                    disabledKeys={["insurance", "fidelities"]}
-                    className="max-w-xs font-bold pb-5"
-                    size='lg'
-                  >
-                    {ListProofs.map((proof) => (
-                      <SelectItem key={proof.value} value={proof.value}>
-                        {proof.label}
-                      </SelectItem>
-                    ))}
-                  </Select>
-                  <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
-                </CardHeader>
-                <CardBody className="overflow-visible py-2 px-10">
-                  <div key={'bordered'} className="flex flex-col w-full mb-6 gap-4">
-                    <Input type="number" variant={'bordered'} label="Amount" placeholder="$100.000" value={amount} onChange={handleAmountChange} />
-                    <Input type="text" variant={'bordered'} label="Condition" placeholder="greater" className="mb-4" />
-                  </div>
-                  <Switch className='mb-3' color='warning'
-                    isSelected={selectedValuesCard1.includes('web2')} onValueChange={(isSelected) => handleValueChangeCard1('web2', isSelected)}>
-                    Web2 Data
-                  </Switch>
-                  <Switch color='danger' isSelected={selectedValuesCard1.includes('web3')} onValueChange={(isSelected) => handleValueChangeCard1('web3', isSelected)}>
-                    Web3 Data
-                  </Switch>
-                </CardBody>
-                <CardFooter className="flex flex-col justify-center items-center space-y-2">
-                  <StartButton selectedValues={selectedValuesCard1} account={account} amount={amount} />
-                  {!account && <p className="text-small text-default-800">You must connect your wallet</p>}
-                </CardFooter>
-              </Card>
+              {selectedProof === 'reserve' && (
+                <Card isBlurred className="py-4 bg-opacity-75 bg-thulian_pink-700">
+                  <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
+                    <p className="text-3xl font-bold pb-2">Reserve</p>
+                    <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                  </CardHeader>
+                  <CardBody className="overflow-visible py-4 px-10">
+                    <div key={'bordered'} className="flex flex-col w-full mb-6 gap-4">
+                      <Input type="number" variant={'bordered'} label="Amount" placeholder="$100.000" value={amount} onChange={handleAmountChange} />
+                      <Input type="text" variant={'bordered'} label="Condition" placeholder="greater" className="mb-4" />
+                    </div>
+                    <Switch className='mb-3' color='warning'
+                      isSelected={selectedValuesCard1.includes('web2')} onValueChange={(isSelected) => handleValueChangeCard1('web2', isSelected)}>
+                      Web2 Data
+                    </Switch>
+                    <Switch color='danger' isSelected={selectedValuesCard1.includes('web3')} onValueChange={(isSelected) => handleValueChangeCard1('web3', isSelected)}>
+                      Web3 Data
+                    </Switch>
+                  </CardBody>
+                  <CardFooter className="flex flex-col justify-center items-center space-y-2">
+                    <StartButton selectedValues={selectedValuesCard1} account={account} amount={amount} />
+                    {!account && <p className="text-small text-default-800">You must connect your wallet</p>}
+                  </CardFooter>
+                </Card>
+              )}
               {/* Grid Transactions */}
-              <Card isBlurred className="py-4 bg-tiffany_blue bg-opacity-75">
-                <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                  <p className="text-3xl font-bold pb-2">Transactions</p>
-                  <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
-                </CardHeader>
-                <CardBody className="overflow-visible py-2 px-10">
-                  <div key={'bordered'} className="flex flex-col w-full mb-6 gap-4">
-                    <Autocomplete
-                      placeholder='ETH Denver'
-                      className="mb-4"
-                      variant={'bordered'}
-                      onSelectionChange={handleCompanyChange}
-                      startContent={
-                        <Image
-                          src="/images/icon/search.svg"
-                          alt="Logo"
-                          width={24}
-                          height={24}
-                          className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0"
-                        />}
-                    >
-                      {cachedProofs.map((Proofs) => (
-                        <AutocompleteItem key={Proofs.label} value={Proofs.label} className='text-black'>
-                          {Proofs.label}
-                        </AutocompleteItem>
-                      ))}
-                    </Autocomplete>
-                  </div>
-                  <Switch className='mb-3'
-                    isSelected={selectedValuesCard2.includes('web2')} onValueChange={(isSelected) => handleValueChangeCard2('web2', isSelected)}>
-                    Web2 Data
-                  </Switch>
-                  <Switch color='secondary' isSelected={selectedValuesCard2.includes('web3')} onValueChange={(isSelected) => handleValueChangeCard2('web3', isSelected)}>
-                    Web3 Data
-                  </Switch>
-                </CardBody>
-                <CardFooter className="flex flex-col justify-center items-center space-y-2">
-                  <Button onClick={() => handleGenerateProof(selectedValuesCard2)} className='bg-tiffany_blue' size="lg" isDisabled={!account} >
-                    Start
-                  </Button>
-                  {!account && <p className="text-small text-default-800">Connect your wallet</p>}
-                </CardFooter>
-              </Card>
+              {selectedProof === 'transaction' && (
+                <Card isBlurred className="py-4 bg-tiffany_blue bg-opacity-75">
+                  <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
+                    <p className="text-3xl font-bold pb-2">Transaction</p>
+                    <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                  </CardHeader>
+                  <CardBody className="overflow-visible py-2 px-10">
+                    <div key={'bordered'} className="flex flex-col w-full mb-6 gap-4">
+                      <Autocomplete
+                        placeholder='ETH Denver'
+                        className="mb-4"
+                        variant={'bordered'}
+                        onSelectionChange={handleCompanyChange}
+                        startContent={
+                          <Image
+                            src="/images/icon/search.svg"
+                            alt="Logo"
+                            width={24}
+                            height={24}
+                            className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0"
+                          />}
+                      >
+                        {cachedProofs.map((Proofs) => (
+                          <AutocompleteItem key={Proofs.label} value={Proofs.label} className='text-black'>
+                            {Proofs.label}
+                          </AutocompleteItem>
+                        ))}
+                      </Autocomplete>
+                    </div>
+                    <Switch className='mb-3'
+                      isSelected={selectedValuesCard2.includes('web2')} onValueChange={(isSelected) => handleValueChangeCard2('web2', isSelected)}>
+                      Web2 Data
+                    </Switch>
+                    <Switch color='secondary' isSelected={selectedValuesCard2.includes('web3')} onValueChange={(isSelected) => handleValueChangeCard2('web3', isSelected)}>
+                      Web3 Data
+                    </Switch>
+                  </CardBody>
+                  <CardFooter className="flex flex-col justify-center items-center space-y-2">
+                    <Button onClick={() => handleGenerateProof(selectedValuesCard2)} className='bg-tiffany_blue' size="lg" isDisabled={!account} >
+                      Start
+                    </Button>
+                    {!account && <p className="text-small text-default-800">Connect your wallet</p>}
+                  </CardFooter>
+                </Card>
+              )}
               {/* Grid Proof of Insurance claims */}
-              <Card isBlurred className="py-4 bg-thulian_pink-700 bg-opacity-75">
-                <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                  <p className="text-3xl font-bold pb-2">Insurance claims</p>
-                  <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
-                </CardHeader>
-                <CardBody className="overflow-visible py-2 px-10">
-                </CardBody>
-                <CardFooter className="flex justify-center items-center">
-                  <Button className='bg-dark_purple text-white' size="lg">
-                    Comming soon
-                  </Button>
-                </CardFooter>
-              </Card>
+              {selectedProof === 'insurance' && (
+                <Card isBlurred className="py-4 bg-thulian_pink-700 bg-opacity-75">
+                  <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
+                    <p className="text-3xl font-bold pb-2">Insurance claims</p>
+                    <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                  </CardHeader>
+                  <CardBody className="overflow-visible py-2 px-10">
+                  </CardBody>
+                  <CardFooter className="flex justify-center items-center">
+                    <Button className='bg-dark_purple text-white' size="lg">
+                      Comming soon
+                    </Button>
+                  </CardFooter>
+                </Card>
+              )}
               {/* Grid Funds */}
-              <Card isBlurred className="py-4 bg-tiffany_blue bg-opacity-75">
-                <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
-                  <p className="text-3xl font-bold pb-2">Funds</p>
-                  <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
-                </CardHeader>
-                <CardBody className="overflow-visible py-2 px-10">
-                </CardBody>
-                <CardFooter className="flex justify-center items-center">
-                  <Button className='bg-dark_purple text-white' size="lg">
-                    Comming soon
-                  </Button>
-                </CardFooter>
-              </Card>
+              {selectedProof === 'funds' && (
+                <Card isBlurred className="py-4 bg-tiffany_blue bg-opacity-75">
+                  <CardHeader className="pb-5 pt-2 px-4 flex-col items-center">
+                    <p className="text-3xl font-bold pb-2">Funds</p>
+                    <small className="text-gray-900 text-sm">Connect your bank account to the app to prove you have a certain amount on it.</small>
+                  </CardHeader>
+                  <CardBody className="overflow-visible py-2 px-10">
+                  </CardBody>
+                  <CardFooter className="flex justify-center items-center">
+                    <Button className='bg-dark_purple text-white' size="lg">
+                      Comming soon
+                    </Button>
+                  </CardFooter>
+                </Card>
+              )}
             </div>
           </section>
         </main >
