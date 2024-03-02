@@ -150,7 +150,7 @@ export default function Dashboard() {
 		await mintSBT(amountInt, balanceInt, 'Lukso')
 		onClose();
 	}
-	async function handleButtonClickXDC() { 
+	async function handleButtonClickXDC() {
 		console.log('balance', balance);
 		console.log('amount', amount);
 		const balanceInt = Math.trunc(balance);
@@ -216,7 +216,7 @@ export default function Dashboard() {
 														{successPercentage === 100 ? "You fit the requirement!" : "You don't fit the requirement."}
 													</p>
 													<div>
-														<p className="text-2xl font-semibold mb-4">Details:</p>
+														<p className="text-xl font-semibold mb-4">Details:</p>
 														<Accordion selectionMode="multiple">
 															<AccordionItem key="1" aria-label="web2" title="web2">
 																<Table aria-label="Example static collection table" className="m-2 w-9/10">
@@ -296,7 +296,7 @@ export default function Dashboard() {
 												</CardBody>
 
 												<CardFooter className="mb-2">
-													<Button className="mx-auto" onPress={() => handleOpen()} disabled>Generate a proof</Button>
+													<Button className="mx-auto" size='lg' onPress={() => handleOpen()} isDisabled={successPercentage < 100}>Generate a proof</Button>
 													{/* <div className="flex-1 flex justify-center items-center z-10">
 														<EthereumProvider>
 															<NetworkProvider>
@@ -318,7 +318,13 @@ export default function Dashboard() {
 																	<ModalBody>
 																		<Button color="default" variant="bordered" onPress={handleButtonClickLukso} size="lg" className="flex items-left justify-between p-4">
 																			<div className="flex items-center">
-																				<Avatar isBordered radius="sm" src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />
+																				<Image
+																					src="/images/Lukso-logo.jpeg"
+																					alt="Logo"
+																					width={48}
+																					height={48}
+																					className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0"
+																				/>
 																				<div className="ml-3">
 																					<h2 className="mb-1">Lukso Network</h2>
 																					<p className="text-sm">Super user-friendly</p>
@@ -327,7 +333,13 @@ export default function Dashboard() {
 																		</Button>
 																		<Button color="default" variant="bordered" onPress={handleButtonClickXDC} size="lg" className="flex items-left justify-between p-4">
 																			<div className="flex items-center">
-																				<Avatar isBordered radius="sm" src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />
+																				<Image
+																					src="/images/XDC-Logo.svg"
+																					alt="Logo"
+																					width={48}
+																					height={48}
+																					className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0"
+																				/>
 																				<div className="ml-3">
 																					<h2 className="mb-1">XDC Network</h2>
 																					<p className="text-sm">Super powerful</p>
@@ -364,7 +376,7 @@ export default function Dashboard() {
 
 										<CardBody>
 											<p className="mx-auto">You don&apos;t fit the requirement.</p>
-
+											<p className="text-xl font-semibold mb-4">Details:</p>
 											<Accordion selectionMode="multiple">
 												<AccordionItem key="1" aria-label="Transactions" title="Transactions">
 													<Table aria-label="Example static collection table" className="m-2 w-9/10">
@@ -399,9 +411,8 @@ export default function Dashboard() {
 												</AccordionItem>
 											</Accordion>
 										</CardBody>
-
 										<CardFooter className="mb-2">
-											<Button className="mx-auto" disabled>Generate a proof</Button>
+											<Button className="mx-auto" disabled  size='lg'>Generate a proof</Button>
 										</CardFooter>
 									</Card>
 								</div>
