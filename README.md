@@ -119,7 +119,7 @@ These features collectively enable users to demonstrate their financial standing
 
 #### Proof of Reserve Diagram
 
-![Proof of reserve diagram](https://github.com/Provehance/app/main/diagrams/proofOfReserveDiagram.png)
+![Proof of reserve diagram](https://github.com/Provehance/app/diagrams/proofOfReserveDiagram.png)
 
 #### Proof of Transaction Diagram
 
