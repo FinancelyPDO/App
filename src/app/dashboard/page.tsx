@@ -15,11 +15,6 @@ export default function Dashboard() {
 	const [amount, setAmount] = useState(0); // From all-proofs (Proof of Reserve) IF EXISTS this mean it's a proof of reserve!
 	const [balance, setBalance] = useState(0);
 	const [successPercentage, setSuccessPercentage] = useState(0);
-	const [account, setAccount] = useState<string | null>(null);
-	const handleAccountChange = (newAccount: string | null) => {
-		setAccount(newAccount);
-		console.log('Account:', newAccount);
-	};
 
 	// CALL POWENS FOR KEY ECHANGES
 	const searchParams = useSearchParams()
@@ -29,8 +24,10 @@ export default function Dashboard() {
 	useEffect(() => {
 		// Check if an access token is already stored in local storage
 		const storedToken = localStorage.getItem('accessToken');
+		const json = localStorage.getItem('result');
 		if (storedToken) {
 			setAccessToken(storedToken);
+			console.log(json);
 		} else {
 			// If no token is stored, proceed to fetch a new one
 			const code = searchParams.get('code');
@@ -82,15 +79,16 @@ export default function Dashboard() {
 				.then(data => {
 					const balance = data.balance;
 					console.log("Balance is: " + balance);
+					setBalance(balance);
+					const finalBalance = balance + web3balance;
+					console.log("Final balance is: " + finalBalance);
 					const currentAmount = parseFloat(localStorage.getItem('amount') || '0');
 					console.log("Current amount is: " + currentAmount);
 					setAmount(currentAmount);
-					console.log("amount is: " + amount);
-					let successPercent = (balance / currentAmount) * 100;
+					let successPercent = (finalBalance / currentAmount) * 100;
 					console.log("Success percentage is: " + successPercent);
 					successPercent = Math.min(Math.max(successPercent, 0), 100);
 					console.log("Success percentage is: " + successPercent);
-					setBalance(balance);
 					setSuccessPercentage(isNaN(successPercent) ? 0 : successPercent);
 				})
 				.catch(error => {
@@ -116,8 +114,6 @@ export default function Dashboard() {
 		setWeb3Balance(web3balance);
 		console.log("Web3 balance is: " + web3balance);
 	}, []);
-
-	//////////MINT LUKSO AND XDC////////////
 
 	return (
 		<main className='bg-zinc-900'>
