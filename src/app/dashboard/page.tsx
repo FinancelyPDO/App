@@ -27,12 +27,18 @@ export default function Dashboard() {
 	const [web3balance, setWeb3Balance] = useState(0);
 
 	useEffect(() => {
-		const code = searchParams.get('code')
-		const data = {
-			code: code,
-			client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
-			client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
-		};
+		// Check if an access token is already stored in local storage
+		const storedToken = localStorage.getItem('accessToken');
+		if (storedToken) {
+			setAccessToken(storedToken);
+		} else {
+			// If no token is stored, proceed to fetch a new one
+			const code = searchParams.get('code');
+			const data = {
+				code: code,
+				client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+				client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+			};
 		console.log('Code:', code);
 		console.log('Client ID:', data.client_id);
 		console.log('Secret:', data.client_secret);
@@ -48,16 +54,14 @@ export default function Dashboard() {
 			.then((data: any) => {
 				console.log(data);
 				console.log('Access Token:', data.access_token);
-				//if (localStorage.getItem('accessToken') == null || localStorage.getItem('accessToken') == "null" || localStorage.getItem('accessToken') == "undefined") {
+				localStorage.setItem('accessToken', data.access_token);
+				// Update the state with the new access token
 				setAccessToken(data.access_token);
-				//localStorage.setItem('accessToken', data.access_token);
-				//} else {
-				//setAccessToken(localStorage.getItem('accessToken'));
-				//}
 			})
 			.catch((error: any) => {
 				console.error('Error:', error);
 			});
+		}
 	}, []);
 
 	// Call Powens for the Balance in the account

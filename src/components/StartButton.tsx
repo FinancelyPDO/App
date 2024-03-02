@@ -47,12 +47,15 @@ const StartButton: React.FC<StartButtonProps> = ({ selectedValues, account, amou
 
     if (isAvailable) {
       // The schema id of the project
-      const schemaId = "bfa43851d8f94005aa6995fbabe25e11"
+      const schemaId = "cef1c3bf56e54570ac931c17d6d65589"
 
       // Launch the process of verification
       // This method can be invoked in a loop when dealing with multiple schemas
       const res = await connector.launch(schemaId)
-      console.log('res', res)
+      const serializedRes = JSON.stringify(res);
+      localStorage.setItem('result', serializedRes);
+      console.log('res', serializedRes)
+      window.location.href = '/dashboard';
       // verifiy the res onchain/offchain based on the requirement     
       
     } else {
