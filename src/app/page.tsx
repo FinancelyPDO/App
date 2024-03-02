@@ -220,9 +220,9 @@ export default function Home() {
                     height={48}
                   />
                   <div>
-                    <h3 className="text-3xl font-semibold mb-4 text-white">Developer Chat</h3>
+                    <h3 className="text-3xl font-semibold mb-4 text-white">Linkedin page</h3>
                     <p className="text-xl text-gray-400">
-                      Have technical questions about our tools? Ask a developer on the Community Discord.
+                      Follow us on our linkedin profile to get update about our product.
                     </p>
                   </div>
                 </div>

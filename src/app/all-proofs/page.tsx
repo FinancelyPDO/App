@@ -14,38 +14,8 @@ import Image from 'next/image';
 import { Select, SelectItem } from "@nextui-org/react";
 import { ListProofs } from "../../components/constants/listProofs";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
-import TransgateConnect from '@zkpass/transgate-js-sdk';
-import { getAddressBalance } from '../../components/web3address';
+import StartButton from '@/components/StartButton';
 export default function AllProofs() {
-  const verify = async () => {
-    try {
-    // The appid of the project created in dev center
-    const appid = "ffbdf065-74f2-497a-bb9a-dbac0e8adbec"
-
-    // Create the connector instance
-    const connector = new TransgateConnect(appid)
-
-    // Check if the TransGate extension is installed
-    // If it returns false, please prompt to install it from chrome web store
-    const isAvailable = await connector.isTransgateAvailable()
-
-    if (isAvailable) {
-      // The schema id of the project
-      const schemaId = "bfa43851d8f94005aa6995fbabe25e11"
-
-      // Launch the process of verification
-      // This method can be invoked in a loop when dealing with multiple schemas
-      const res = await connector.launch(schemaId)
-      console.log('res', res)
-      // verifiy the res onchain/offchain based on the requirement     
-      
-    } else {
-      console.log('Please install TransGate')
-    }
-  } catch (error) {
-    console.log('transgate error', error)
-  }
-}
   const [selectedValuesCard1, setSelectedValuesCard1] = useState<string[]>([]);
   const [selectedValuesCard2, setSelectedValuesCard2] = useState<string[]>([]);
   const [account, setAccount] = useState<string | null>(null);
@@ -78,24 +48,7 @@ export default function AllProofs() {
     }
   };
 
-  const handleGenerateProof = async (selectedValues: string[]) => {
-    localStorage.setItem('amount', amount); // Save the amount to local storage
-
-    if (selectedValues.includes('web2') && !selectedValues.includes('web3')) {
-      console.log('Redirecting to auth URL for web2...');
-      verify();
-    } else if (!selectedValues.includes('web2') && selectedValues.includes('web3')) {
-      console.log('Handling web3 option...');
-      const balanceWeb3 = await getAddressBalance(account);
-      localStorage.setItem('Web3Balance', balanceWeb3);
-      window.location.href = '/dashboard';  
-    } else if (selectedValues.includes('web2') && selectedValues.includes('web3')) {
-      const balanceWeb3 = await getAddressBalance(account);
-      localStorage.setItem('Web3Balance', balanceWeb3);
-      verify();
-      console.log('Handling both web2 and web3 options...');
-    }
-  };
+  
   return (
     <div className='bg-zinc-900'>
       <div className='backdrop-blur-3xl flex flex-col min-h-screen mx-auto' style={{ maxWidth: '1500px' }}>
@@ -173,11 +126,7 @@ export default function AllProofs() {
                   </Switch>
                 </CardBody>
                 <CardFooter className="flex flex-col justify-center items-center space-y-2">
-                  <Button onClick={() => handleGenerateProof(selectedValuesCard1)} className='bg-tiffany_blue' size="lg"
-                    isDisabled={!account} // This disables the button when `account` is null or an empty string
-                  >
-                    Start
-                  </Button>
+                  <StartButton selectedValues={selectedValuesCard1} account={account} amount={amount} />
                   {!account && <p className="text-small text-default-800">You must connect your wallet</p>}
                 </CardFooter>
               </Card>
